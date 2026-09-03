@@ -48,16 +48,16 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
 
 ### S1-03 — Health endpoint (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **commit:** S1-03: Health endpoint
 - **Demonstration:**
   1. **Do this:** With the API running, open `http://localhost:8000/health` in the browser, or use Try it out on `GET /health` in `/docs`.
   2. **Capture:** Screenshot of the JSON response (browser or `/docs` response panel).
   3. **Must show:** HTTP success and a JSON body for `/health` (fields as in your ticket acceptance criteria, for example status).
   4. **Must not show:** Stack traces, env dumps, or secrets.
   5. **Save as:** `docs/reports/images/sprint-01/s1-03-health.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** Toimiva API health-check
+- **Used AI?** No
 
 ### S1-04 — Python dependencies (Must)
 
