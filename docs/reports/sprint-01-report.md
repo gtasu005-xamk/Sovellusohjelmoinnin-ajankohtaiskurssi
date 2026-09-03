@@ -7,7 +7,7 @@ Copy this file to `docs/reports/sprint-01.md` in **your** repo and fill the blan
 | **Dates**    |             |
 | **Names**    |             |
 | **Repo URL** |             |
-| **Branch**   |             |
+| **Branch**   |  Master     |
 
 Tickets: [sprint-01-tickets.md](../tickets/sprint-01-tickets.md) · Index: [../README.md](../README.md)
 
@@ -29,22 +29,22 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
 
 ### S1-01 — Create monorepo layout and root `.gitignore` (Must)
 
-- **Status:** Done / deferred (why):
+- **Status:** Done
 - **commit:** S1-01: Monorepo layout + .gitignore
 - **Used AI?** No
 
 ### S1-02 — FastAPI app skeleton (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **commit:** S1-02: FastAPI app skeleton
 - **Demonstration:**
   1. **Do this:** From `backend/`, start Uvicorn (`uvicorn app.main:app --reload` or your documented command). Open `http://localhost:8000/docs` in a browser.
   2. **Capture:** Screenshot of the OpenAPI / Swagger UI page.
   3. **Must show:** The `/docs` page loaded (title or Swagger chrome visible) and that the API is reachable (page is not a connection error).
   4. **Must not show:** `.env` contents, database passwords, or unrelated desktop clutter with secrets.
   5. **Save as:** `docs/reports/images/sprint-01/s1-02-docs.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** Terminal komento käytetty uvicorn starttaamiseen:  uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+- **Used AI?**  No
 
 ### S1-03 — Health endpoint (Must)
 

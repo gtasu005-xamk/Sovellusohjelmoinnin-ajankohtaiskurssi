@@ -1,6 +1,12 @@
 .env
-.venv/ , venv/
+
+.venv/ 
+ venv/
+
 node_modules/
-__pycache>>/, *.pyc
-dist/, build/
+__pycache__/
+*.pyc
+
+dist/
+build/
 
