@@ -67,9 +67,9 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
 
 ### S1-06 — Env example and settings (Must)
 
-- **Status:**
-- **PR / commit:**
-- **Used AI?** Yes / No
+- **Status:** Done
+- **commit:** S1-06: Env example and settings
+- **Used AI?** No
 
 ### S1-07 — Docker Compose for db and api (Must)
 
