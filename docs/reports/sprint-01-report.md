@@ -61,9 +61,9 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
 
 ### S1-04 — Python dependencies (Must)
 
-- **Status:**
-- **PR / commit:**
-- **Used AI?** Yes / No
+- **Status:** Done
+- **commit:** S1-04: Python dependencies
+- **Used AI?** No
 
 ### S1-06 — Env example and settings (Must)
 
