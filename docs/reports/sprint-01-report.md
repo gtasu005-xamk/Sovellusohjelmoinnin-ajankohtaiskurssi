@@ -86,16 +86,16 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
 
 ### S1-08 — API reaches Postgres (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **commit:** S1-08: API reaches Postgres
 - **Demonstration:**
   1. **Do this:** With Compose up, open API logs (`docker compose logs api`) and/or hit a healthcheck that talks to Postgres if you already have one. Confirm the connection string host inside Compose is the service name `db`, not `localhost`.
   2. **Capture:** Screenshot of logs or health output that proves the API reached Postgres.
   3. **Must show:** Evidence the API talks to host `db` (successful connect message, healthcheck pass, or equivalent)—not a connection refused to the wrong host.
   4. **Must not show:** Full `DATABASE_URL` with real passwords; redact credentials.
   5. **Save as:** `docs/reports/images/sprint-01/s1-08-api-db.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** docker compose ps tulostus
+- **Used AI?** Yes 
 
 ### S1-09 — Vite React TypeScript scaffold (Must)
 
