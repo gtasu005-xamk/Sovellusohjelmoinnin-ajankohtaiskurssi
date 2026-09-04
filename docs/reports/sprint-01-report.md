@@ -112,16 +112,16 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
 
 ### S1-10 — Router and placeholder home (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **commit:** S1-10: Router and placeholder home
 - **Demonstration:**
   1. **Do this:** With the frontend running, open the home route (usually `/`). Confirm your placeholder home content is what appears (not only the stock Vite counter if you replaced it).
   2. **Capture:** Screenshot of the home page including the URL bar.
   3. **Must show:** Placeholder home content and the route URL.
   4. **Must not show:** Secrets or unrelated authenticated data (none expected yet).
   5. **Save as:** `docs/reports/images/sprint-01/s1-10-home.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** Uusi etusivu, localhost:5173/ 
+- **Used AI?**  No
 
 ### S1-11 — API base URL and health indicator (Should)
 
