@@ -99,16 +99,16 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
 
 ### S1-09 — Vite React TypeScript scaffold (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **commit:** S1-09: Vite React TypeScript scaffold
 - **Demonstration:**
   1. **Do this:** Start the frontend (`npm run dev` in `frontend/` or via Compose if `web` already exists). Open the printed localhost URL in a browser.
   2. **Capture:** Screenshot of the browser showing the default Vite/React app shell.
   3. **Must show:** Browser address bar with the frontend URL and the running React/Vite page (not a blank error page).
   4. **Must not show:** API tokens or `.env` panels.
   5. **Save as:** `docs/reports/images/sprint-01/s1-09-frontend.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** Default viten sivun pyörimässä localhost:5173
+- **Used AI?** No
 
 ### S1-10 — Router and placeholder home (Must)
 
