@@ -138,16 +138,16 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
 
 ### S1-12 — Web service in Compose (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **commit:** S1-12: Web service in Compose
 - **Demonstration:**
   1. **Do this:** Run `docker compose up --build` so `db`, `api`, and `web` start. Open the frontend URL published by Compose (see your README / `.env` ports, often `http://localhost:5173`).
   2. **Capture:** One screenshot of `docker compose ps` (or Docker UI) showing all three services, and one of the frontend loaded from that URL—or a single collage if both fit.
   3. **Must show:** `db`, `api`, and `web` running; browser showing the frontend from the Compose-published URL.
   4. **Must not show:** Secrets from env files in the terminal scrollback.
   5. **Save as:** `docs/reports/images/sprint-01/s1-12-compose-web.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** db, api, web kontit pyörimässä Docker
+- **Used AI?** Yes
 
 ### S1-13 — Root README (Must)
 
@@ -227,7 +227,7 @@ Deferred Must/Should, stretch leftovers, risks for [Sprint 2 tickets](../tickets
 
 ## AI usage (sprint-level reflection)
 
-07
+07, 08, 12
 
 Mark **Used AI?** under each ticket above (`Yes` / `No`). Do **not** write per-ticket reflections there.
 
