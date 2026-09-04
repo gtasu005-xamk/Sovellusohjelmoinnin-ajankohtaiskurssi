@@ -71,18 +71,18 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
 - **commit:** S1-06: Env example and settings
 - **Used AI?** No
 
-### S1-07 — Docker Compose for db and api (Must)
+### S1-07: Docker Compose for db and api (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **commit:** S1-07 — Docker Compose for db and api
 - **Demonstration:**
   1. **Do this:** From the repo root, run `docker compose up --build` (or your documented equivalent). Wait until services settle. Run `docker compose ps` (or show the Docker Desktop containers view).
   2. **Capture:** Screenshot of the terminal `ps` output or Docker UI listing services.
   3. **Must show:** Both `db` and `api` listed as running / healthy (or equivalent status for your Compose file).
   4. **Must not show:** Full `.env` values, Postgres passwords in clear text, or cloud credentials.
   5. **Save as:** `docs/reports/images/sprint-01/s1-07-compose-db-api.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** Docker Desktop näkymä pyörivistä konteista.
+- **Used AI?** Yes. 
 
 ### S1-08 — API reaches Postgres (Must)
 
@@ -226,6 +226,8 @@ Note what you actually used. Tools this sprint: Git / monorepo, Python venv + `r
 Deferred Must/Should, stretch leftovers, risks for [Sprint 2 tickets](../tickets/sprint-02-tickets.md) (auth, catalog, SQLAdmin).
 
 ## AI usage (sprint-level reflection)
+
+07
 
 Mark **Used AI?** under each ticket above (`Yes` / `No`). Do **not** write per-ticket reflections there.
 
