@@ -4,9 +4,9 @@ Copy this file to `docs/reports/sprint-01.md` in **your** repo and fill the blan
 
 | Field        | Your answer |
 | ------------ | ----------- |
-| **Dates**    |             |
-| **Names**    |             |
-| **Repo URL** |             |
+| **Dates**    |   4.9.2025   
+| **Names**    |Tatu Suuripää 
+| **Repo URL** |https://github.com/gtasu005-xamk/Sovellusohjelmoinnin-ajankohtaiskurssi             
 | **Branch**   |  Master     |
 
 Tickets: [sprint-01-tickets.md](../tickets/sprint-01-tickets.md) · Index: [../README.md](../README.md)
@@ -125,7 +125,7 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
 
 ### S1-11 — API base URL and health indicator (Should)
 
-- **Status:**
+- **Status:** Not Done
 - **PR / commit:**
 - **Demonstration:** (only if you did this ticket)
   1. **Do this:** Open the home page with API and frontend running. Trigger or wait for the health fetch so the UI shows API status (and/or the configured base URL if you display it).
@@ -151,8 +151,8 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
 
 ### S1-13 — Root README (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done 
+- **PR / commit:** S1-13: Readme.md
 - **Demonstration:**
   1. **Do this:** Open the root `README.md` in the editor or on your Git host.
   2. **Capture:** Screenshot of the section that covers prerequisites, `.env`, Compose, and the URL / demo-path table.
@@ -160,7 +160,7 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
   4. **Must not show:** Real passwords committed in the README.
   5. **Save as:** `docs/reports/images/sprint-01/s1-13-readme.png`
   6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+- **Used AI?** No
 
 ### Stretch (only if you did them)
 
@@ -168,7 +168,7 @@ For each stretch below that you completed: Status, PR / commit, Used AI? Add Dem
 
 #### S1-S1 — DB-aware health (if done)
 
-- **Status:**
+- **Status:** Not Done
 - **PR / commit:**
 - **Demonstration:**
   1. **Do this:** With Compose up and Postgres reachable, open `http://localhost:8000/health/db` (or your documented path).
@@ -181,13 +181,13 @@ For each stretch below that you completed: Status, PR / commit, Used AI? Add Dem
 
 #### S1-S2 — Multi-stage API image (if done)
 
-- **Status:**
+- **Status:** Not Done
 - **PR / commit:**
 - **Used AI?** Yes / No
 
 #### S1-S3 — Smoke CI (if done)
 
-- **Status:**
+- **Status:** Not Done
 - **PR / commit:**
 - **Demonstration:**
   1. **Do this:** Open the CI run on your Git host for the workflow that smoke-tests the API (or installs and runs a documented check).
@@ -218,8 +218,8 @@ Two to four technical choices with why (for example Vite in Compose vs build + n
 
 Note what you actually used. Tools this sprint: Git / monorepo, Python venv + `requirements.txt`, FastAPI + Uvicorn, OpenAPI (`/docs`), Pydantic / pydantic-settings, PostgreSQL, Docker Compose, React + TypeScript + Vite, React Router, `.env` / `.env.example`.
 
-- What clicked:
-- One thing you would do differently:
+- What clicked: Python-projektien rakenne ja virtuaaliympäristön käyttä selkeytyi huomattavasti. Docker Composen perusidea selkeyti, voidaan käynnistää ja yhdistää tietokanta, backend ja frontend yhdeksi kokonaisuudeksi yhdellä ajolla. 
+- One thing you would do differently: Toteuttasin Docker Composea rauhallisemmin paremmalla ajalla ja testaisin kaikki vaiheet erikseen, ennen seuraavan vaihee lisäämistä. 
 
 ## Carry-over
 
@@ -235,12 +235,12 @@ Here, cover your **overall** AI use during this sprint (Cursor, ChatGPT, Copilot
 
 If you marked **No** on every ticket, write a short note that you did not use AI coding assistants this sprint (you may still answer verification / independence questions briefly).
 
-- **Where AI helped most this sprint** (themes, ticket IDs, or areas—not a ticket-by-ticket dump):
-- **What I typically accepted from AI suggestions:**
-- **What I typically rejected or reworked, and why:**
-- **How I verified AI-assisted work** (tests, `/docs`, manual demos, reviews):
-- **What I can now explain or do independently** that I relied on AI for earlier:
-- **Anything I would do differently with AI next sprint:**
+- **Where AI helped most this sprint** (themes, ticket IDs, or areas—not a ticket-by-ticket dump): Käytin tekoälyä ticketeissä S1-07, S1-08 ja S1-12. Apua tarvitsin erityisesti Docker Composen rakenteen, containerien välisen verkkoliikenteen sekä frontendin lisäämisen Composeen ymmärtämisessä.
+- **What I typically accepted from AI suggestions:** Hyödynsin ehdotuksia Docker Compose -konfiguraation rakenteesta, porttien määrittelystä, ympäristömuuttujista ja palveluiden välisestä kommunikoinnista.
+- **What I typically rejected or reworked, and why:** Muokkasin ehdotuksia omaan projektirakenteeseeni ja kurssin ohjeisiin sopiviksi. Pyrin myös pitämään toteutuksen mahdollisimman yksinkertaisena ja Sprint 1 vaatimusten mukaisena.
+- **How I verified AI-assisted work** (tests, `/docs`, manual demos, reviews): Testasin kokonaisuuden ajamalla docker compose up --build ja tarkistin, että tietokanta, API ja frontend käynnistyvät. Testasin API /health- ja /docs-osoitteiden kautta sekä frontendin toiminnan selaimessa.
+- **What I can now explain or do independently** that I relied on AI for earlier: Ymmärrän Docker Composen perusidean ja osaan paremmin määritellä palveluita, portteja ja ympäristömuuttujia.
+- **Anything I would do differently with AI next sprint:** Pyytäisin tekoälyä ensin pilkkomaan ongelma pienempii helpommin ymmärrettäviin osiin.
 
 Do not paste secrets, full JWTs, or `.env` values.
 
