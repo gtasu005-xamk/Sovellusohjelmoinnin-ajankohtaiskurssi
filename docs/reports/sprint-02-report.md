@@ -35,10 +35,10 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
 - **Used AI?** Yes - Fiksaamaan configissa database_url
 
 ### S2-02 — User model (Must)
-
-- **Status:**
-- **PR / commit:**
-- **Demonstration:**
+ KUVA puuttuu
+- **Status:** Done
+- **PR / commit:** S2-02: User Model
+- **Demonstration:** 
   1. **Do this:** Prefer `/admin` after env-based SQLAdmin login showing the Users (or `user`) table. If `/admin` is not ready yet, show the Alembic migration file (or `alembic history`) listing the `user` table create.
   2. **Capture:** Screenshot of `/admin` Users list or the migration/editor view of the `user` table.
   3. **Must show:** Proof a `user` (or Users) table exists in the schema or admin UI.
