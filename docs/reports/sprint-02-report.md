@@ -61,9 +61,9 @@ Kuva puuttuu
 - **Used AI?** Yes / No
 
 ### S2-04 — UnitType model and activity links (Must)
-
-- **Status:**
-- **PR / commit:**
+Kuva puuttuu
+- **Status:** Done 
+- **PR / commit:** S2-04: UnitType model and activity links
 - **Demonstration:**
   1. **Do this:** In `/admin`, open unit types and the activity↔unit link (or activity detail) so Running → duration + distance (or your equivalent pair) is visible.
   2. **Capture:** Screenshot showing Running (or one activity) linked to at least two unit types such as duration and distance.
@@ -71,7 +71,7 @@ Kuva puuttuu
   4. **Must not show:** SQLAdmin credentials in the shot.
   5. **Save as:** `docs/reports/images/sprint-02/s2-04-unit-links.png`
   6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+- **Used AI?** Yes 
 
 ### S2-05 — Alembic setup and initial migration (Must)
 
