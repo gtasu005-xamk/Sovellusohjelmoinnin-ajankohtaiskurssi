@@ -48,9 +48,9 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
 - **Used AI?** Yes / No
 
 ### S2-03 — ActivityType model (Must)
-
-- **Status:**
-- **PR / commit:**
+Kuva puuttuu 
+- **Status:** Done
+- **PR / commit:** S2-03: ActivityType model
 - **Demonstration:**
   1. **Do this:** Open `/admin` activity types view, or show activity types in `/docs` if you already expose a list endpoint.
   2. **Capture:** Screenshot of activity types listed.
