@@ -101,16 +101,16 @@ KUVA PUUTTUU
 
 ### S2-07 — SQLAdmin UI for Postgres (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S2-07: SQLAdmin UI for Postgres
 - **Demonstration:**
   1. **Do this:** Open `http://localhost:8000/admin` (or your documented URL). Log in with **SQLAdmin env credentials** (not the app JWT Login page). Land on the admin home or a model list.
   2. **Capture:** Screenshot of `/admin` after successful env login.
   3. **Must show:** SQLAdmin UI loaded and authenticated; URL includes `/admin`.
   4. **Must not show:** The password you typed; crop the login form after submit if the password field is still visible. Do not show JWT Bearer tokens—this login is separate from app auth.
   5. **Save as:** `docs/reports/images/sprint-02/s2-07-admin.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** localhost:8000/admin succesfull login page
+- **Used AI?** Yes - debugging previous docker-compose databaseurl settings ja alembic lisäys docker
 
 ### S2-08 — Password hashing helpers (Must)
 

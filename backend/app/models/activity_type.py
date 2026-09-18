@@ -13,3 +13,6 @@ class ActivityType(Base):
     is_system: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
 
     unit_links = relationship("ActivityTypeUnitType", back_populates="activity_type",)
+
+    def __str__(self):
+        return self.name
