@@ -9,7 +9,7 @@ class ActivityType(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String, nullable=False)
     slug: Mapped[str] = mapped_column(String, nullable=False)
-    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
+    user_id: Mapped[int | None] = mapped_column(ForeignKey("users.id"), nullable=True)
     is_system: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
 
     unit_links = relationship("ActivityTypeUnitType", back_populates="activity_type",)

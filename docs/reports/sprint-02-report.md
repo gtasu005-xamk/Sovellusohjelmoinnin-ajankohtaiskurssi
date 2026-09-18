@@ -87,9 +87,9 @@ Kuva puuttuu
 - **Used AI?** No
 
 ### S2-06 — Seed system catalog (Must)
-
-- **Status:**
-- **PR / commit:**
+KUVA PUUTTUU 
+- **Status:** Done
+- **PR / commit:** S2-06: Seed system catalog
 - **Demonstration:**
   1. **Do this:** After seed runs (startup or documented command), open `/admin` and browse unit types and activity types (and links if shown).
   2. **Capture:** Screenshot of seeded units and activities (enough rows to prove the catalog, for example six activities and four units).
@@ -97,7 +97,7 @@ Kuva puuttuu
   4. **Must not show:** Admin password typed into a form in clear text if avoidable.
   5. **Save as:** `docs/reports/images/sprint-02/s2-06-seed.png`
   6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+- **Used AI?** Yes - debugging previous models/activity_type.py % models/user.py
 
 ### S2-07 — SQLAdmin UI for Postgres (Must)
 
