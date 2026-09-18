@@ -75,16 +75,16 @@ Kuva puuttuu
 
 ### S2-05 — Alembic setup and initial migration (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S2-05: Alembic setup and initial migration
 - **Demonstration:**
   1. **Do this:** Either (a) show `alembic upgrade head` succeeding in the terminal, (b) open the initial migration file in the editor, or (c) after a fresh Compose migrate, show tables present in `/admin` or `psql` `\dt`.
   2. **Capture:** Screenshot of one of those proofs.
   3. **Must show:** Migration tooling in use and schema applied (command success, migration file, or tables after upgrade).
   4. **Must not show:** Database passwords in the command line history.
   5. **Save as:** `docs/reports/images/sprint-02/s2-05-alembic.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** Succesfull alembic revision & alembic upgrade head
+- **Used AI?** No
 
 ### S2-06 — Seed system catalog (Must)
 

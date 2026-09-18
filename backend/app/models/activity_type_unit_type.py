@@ -3,11 +3,11 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.base import Base
 
 class ActivityTypeUnitType(Base):
-    __tablename__ = "activity_type_unit_type"
+    __tablename__ = "activity_type_unit_types"
     __table_args__ = (UniqueConstraint("activity_type_id", "unit_type_id", name="uq_activity_type_unit_type"),)
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    activity_type_id: Mapped[int] = mapped_column(ForeignKey("activity_type.id"), nullable=False)
+    activity_type_id: Mapped[int] = mapped_column(ForeignKey("activity_types.id"), nullable=False)
     unit_type_id: Mapped[int] = mapped_column(ForeignKey("unit_types.id"),nullable=False,)
 
     sort_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)

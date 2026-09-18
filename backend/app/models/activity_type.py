@@ -3,7 +3,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.base import Base
 
 class ActivityType(Base):
-    __tablename__ = "activity_type"
+    __tablename__ = "activity_types"
     __table_args__ = (UniqueConstraint("user_id", "slug", name="uq_activity_type_user_id_slug"),)
 
     id: Mapped[int] = mapped_column(primary_key=True)
