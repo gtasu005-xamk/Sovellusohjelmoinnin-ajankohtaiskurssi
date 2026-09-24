@@ -114,9 +114,9 @@ KUVA PUUTTUU
 
 ### S2-08 — Password hashing helpers (Must)
 
-- **Status:**
-- **PR / commit:**
-- **Used AI?** Yes / No
+- **Status:** Done
+- **PR / commit:** S2-08: Password hashing helpers
+- **Used AI?** No
 
 ### S2-09 — JWT helpers and current user (Must)
 
