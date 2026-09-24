@@ -120,9 +120,9 @@ KUVA PUUTTUU
 
 ### S2-09 — JWT helpers and current user (Must)
 
-- **Status:**
-- **PR / commit:**
-- **Used AI?** Yes / No
+- **Status:** Done 
+- **PR / commit:** S2-09 : JWT helpers and current user
+- **Used AI?** Yes - debugging psycopg issues and creating deps.py
 
 ### S2-10 — Register endpoint (Must)
 
