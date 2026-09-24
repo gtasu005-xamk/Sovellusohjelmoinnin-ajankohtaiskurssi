@@ -8,3 +8,4 @@ sqladmin
 itsdangerous
 bcrypt
 PyJWT
+email-validator

@@ -126,16 +126,16 @@ KUVA PUUTTUU
 
 ### S2-10 — Register endpoint (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S2-10: Register endpoint
 - **Demonstration:**
   1. **Do this:** In `/docs`, run `POST /auth/register` with a new email and password. Confirm HTTP 201 (or your documented success).
   2. **Capture:** Screenshot of the `/docs` request/response for register.
   3. **Must show:** Successful register response (201) and that a user was created (response body without password).
   4. **Must not show:** The password value in the request body—crop or blank it before saving.
   5. **Save as:** `docs/reports/images/sprint-02/s2-10-register.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** Onnistunut Swagger-UI /auth/register POST.
+- **Used AI?** Yes 
 
 ### S2-11 — Login endpoint (Must)
 
