@@ -44,8 +44,8 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
   3. **Must show:** Proof a `user` (or Users) table exists in the schema or admin UI.
   4. **Must not show:** Password hashes, SQLAdmin password fields filled in, or JWT tokens.
   5. **Save as:** `docs/reports/images/sprint-02/s2-02-user.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** User Model admin näkymässä.
+- **Used AI?**  No
 
 ### S2-03 — ActivityType model (Must)
 Kuva puuttuu 
@@ -57,8 +57,8 @@ Kuva puuttuu
   3. **Must show:** At least one activity type row (name/slug visible) in `/admin` or `/docs`.
   4. **Must not show:** Secrets or unrelated user password data.
   5. **Save as:** `docs/reports/images/sprint-02/s2-03-activity-types.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** Activity types admin näkymässä.
+- **Used AI?** No
 
 ### S2-04 — UnitType model and activity links (Must)
 Kuva puuttuu
@@ -70,7 +70,7 @@ Kuva puuttuu
   3. **Must show:** The M:N link clearly (activity + allowed units), not only an empty units list.
   4. **Must not show:** SQLAdmin credentials in the shot.
   5. **Save as:** `docs/reports/images/sprint-02/s2-04-unit-links.png`
-  6. **Caption (1–2 sentences):**
+  6. **Caption (1–2 sentences):** Activity links
 - **Used AI?** Yes 
 
 ### S2-05 — Alembic setup and initial migration (Must)
@@ -96,7 +96,7 @@ KUVA PUUTTUU
   3. **Must show:** Seeded catalog data present—not empty tables after seed.
   4. **Must not show:** Admin password typed into a form in clear text if avoidable.
   5. **Save as:** `docs/reports/images/sprint-02/s2-06-seed.png`
-  6. **Caption (1–2 sentences):**
+  6. **Caption (1–2 sentences):** Seed system catalog admin näkymässä.
 - **Used AI?** Yes - debugging previous models/activity_type.py % models/user.py
 
 ### S2-07 — SQLAdmin UI for Postgres (Must)
