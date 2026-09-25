@@ -17,6 +17,8 @@ function mapValidationErrors(detail: ValidationError[]): FieldErrors {
     }
     return errors;
 }
+// Onnistuneen rekisteröinnin jälkeen ohjataan /login-sivulle.
+// POST /auth/register palauttaa UserPublic-olion eikä tokenia, joten auto-login ei ole mahdollinen.
 
 function RegisterPage() {
     const navigate = useNavigate();
