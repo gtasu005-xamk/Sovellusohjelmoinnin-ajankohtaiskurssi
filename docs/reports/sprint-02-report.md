@@ -191,8 +191,8 @@ KUVA PUUTTUU
 
 ### S2-15 — Login page and token storage (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S2-15: Login page and token storage
 - **Demonstration:**
   1. **Do this:** Open the Login page. Log in successfully so the app stores the JWT in `localStorage` (do not open Application → Local Storage for the screenshot if the token value is visible).
   2. **Capture:** Screenshot of the Login UI (before or after login, without exposing the token value).
@@ -200,7 +200,7 @@ KUVA PUUTTUU
   4. **Must not show:** `localStorage` panel with a readable JWT, or password fields filled in.
   5. **Save as:** `docs/reports/images/sprint-02/s2-15-login-ui.png`
   6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+- **Used AI?** yes
 
 ### S2-16 — Protected layout (Must)
 
