@@ -152,16 +152,16 @@ KUVA PUUTTUU
 
 ### S2-12 — Me endpoint (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S2-12: Me endpoint
 - **Demonstration:**
   1. **Do this:** In `/docs`, authorize with a valid Bearer token (Authorize button). Call `GET /auth/me`. Confirm 200 and your user profile fields.
   2. **Capture:** Screenshot of `/auth/me` response.
   3. **Must show:** 200 response with the current user (for example email/id)—proving the token was accepted.
   4. **Must not show:** The Authorize dialog with a full token visible; crop tokens.
   5. **Save as:** `docs/reports/images/sprint-02/s2-12-me.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** Onnistunut Swagger-UI /auth/me GET
+- **Used AI?** No
 
 ### S2-13 — CORS lockdown (Must)
 

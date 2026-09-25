@@ -1,7 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
+from app.core.deps import get_current_user
 from app.db.session import get_db
+from app.models.user import User
 from app.schemas.auth import LoginRequest, RegisterRequest, TokenResponse, UserPublic
 from app.services.auth import (EmailAlreadyRegisteredError, InvalidCredentialsError, authenticate_user, register_user,)
 
@@ -34,3 +36,8 @@ def login(body: LoginRequest, db: Session = Depends(get_db)):
             detail="Incorrect email or password",
         )
     return TokenResponse(access_token=access_token)
+
+
+@router.get("/me", response_model=UserPublic)
+def me(current_user: User = Depends(get_current_user)):
+    return current_user
