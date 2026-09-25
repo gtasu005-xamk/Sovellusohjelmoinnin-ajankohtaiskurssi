@@ -173,7 +173,8 @@ KUVA PUUTTUU
   3. **Must show:** The frontend origin and that the API response allows it (for example `Access-Control-Allow-Origin` matching your Vite origin, or a successful cross-origin call from that origin).
   4. **Must not show:** Authorization Bearer values—collapse or crop that header.
   5. **Save as:** `docs/reports/images/sprint-02/s2-13-cors.png`
-  6. **Caption (1–2 sentences):**
+  6. **Caption (1–2 sentences):** API sallii frontendin originin (Access-Control-Allow-Origin: http://localhost:5173).
+
 - **Used AI?** No
 
 ### S2-14 — Register page (Must)
@@ -186,7 +187,7 @@ KUVA PUUTTUU
   3. **Must show:** Register form (email/password fields visible as UI chrome, not filled secrets).
   4. **Must not show:** Typed passwords or confirmation codes.
   5. **Save as:** `docs/reports/images/sprint-02/s2-14-register-ui.png`
-  6. **Caption (1–2 sentences):**
+  6. **Caption (1–2 sentences):** Rekisteröinti UI:ssa
 - **Used AI?** Yes
 
 ### S2-15 — Login page and token storage (Must)
@@ -199,21 +200,21 @@ KUVA PUUTTUU
   3. **Must show:** Login page UI for the SPA.
   4. **Must not show:** `localStorage` panel with a readable JWT, or password fields filled in.
   5. **Save as:** `docs/reports/images/sprint-02/s2-15-login-ui.png`
-  6. **Caption (1–2 sentences):**
+  6. **Caption (1–2 sentences):** Kirjautuminen UI:ssa
 - **Used AI?** yes
 
 ### S2-16 — Protected layout (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:**  S2-16: Protected layout
 - **Demonstration:**
   1. **Do this:** While logged out, open a gated route (for example Dashboard or Settings). Confirm you are redirected or blocked. Then log in and open the same route; confirm the protected layout appears.
   2. **Capture:** Two screenshots (logged-out bounce + logged-in layout) or one collage.
   3. **Must show:** Logged-out user cannot stay on the gated page; logged-in user sees the protected shell.
   4. **Must not show:** Tokens in the URL or DevTools.
   5. **Save as:** `docs/reports/images/sprint-02/s2-16-protected.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** Ylempi kirjautuneena Etusivu, alempi uloskirjautuneen ohjautuu /login
+- **Used AI?** No
 
 ### S2-17 — User display and logout (Must)
 

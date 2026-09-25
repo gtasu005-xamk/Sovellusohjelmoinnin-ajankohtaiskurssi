@@ -17,3 +17,12 @@ export async function apiPost(path: string, body: unknown): Promise<Response> {
     }
     return response;
 }
+
+export async function apiGet(path: string): Promise<Response> {
+    const response = await fetch(`${API_BASE_URL}${path}`, {
+        method: "GET", headers: buildHeaders(),});
+    if (response.status === 401) {
+        clearToken();
+    }
+    return response;
+}
