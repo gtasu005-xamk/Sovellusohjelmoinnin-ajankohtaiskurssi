@@ -139,16 +139,16 @@ KUVA PUUTTUU
 
 ### S2-11 — Login endpoint (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S2-11: Login endpoint
 - **Demonstration:**
   1. **Do this:** In `/docs`, run `POST /auth/login` with a valid user. Confirm a token field is present in the response.
   2. **Capture:** Screenshot showing login succeeded and a token **key** exists.
   3. **Must show:** Successful login and evidence a token was returned (you may blur/crop the token **value**).
   4. **Must not show:** The full JWT string pasted into the report or left readable in the image. Never paste the token into the Markdown.
   5. **Save as:** `docs/reports/images/sprint-02/s2-11-login.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** Onnistunut Swagger-UI /auth/login POST
+- **Used AI?** Yes
 
 ### S2-12 — Me endpoint (Must)
 
