@@ -178,8 +178,8 @@ KUVA PUUTTUU
 
 ### S2-14 — Register page (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S2-14: Register page
 - **Demonstration:**
   1. **Do this:** Open the Register page in the SPA. Optionally submit once with a test user, then crop any password fields.
   2. **Capture:** Screenshot of the Register UI.
@@ -187,7 +187,7 @@ KUVA PUUTTUU
   4. **Must not show:** Typed passwords or confirmation codes.
   5. **Save as:** `docs/reports/images/sprint-02/s2-14-register-ui.png`
   6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+- **Used AI?** Yes
 
 ### S2-15 — Login page and token storage (Must)
 
