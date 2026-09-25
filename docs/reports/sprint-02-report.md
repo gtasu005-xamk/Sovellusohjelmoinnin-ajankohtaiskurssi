@@ -218,16 +218,16 @@ KUVA PUUTTUU
 
 ### S2-17 — User display and logout (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S2-17: User display and logout
 - **Demonstration:**
   1. **Do this:** While logged in, show the header or Settings with the current user identity. Then log out and show the post-logout state (login page or cleared header).
   2. **Capture:** Two screenshots (before and after logout).
   3. **Must show:** User identity visible when logged in; after logout the user is gone from the chrome and protected content is inaccessible.
   4. **Must not show:** Tokens or password fields.
   5. **Save as:** `docs/reports/images/sprint-02/s2-17-logout.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** Ylempi sisäänkirjautuneena, alempi uloskirjautuminen.
+- **Used AI?** Yes 
 
 ### S2-18 — Auth + SQLAdmin README notes (Should)
 

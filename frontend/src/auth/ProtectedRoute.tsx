@@ -1,26 +1,43 @@
 import {useEffect, useState} from "react";
-import {Navigate, Outlet} from "react-router-dom";
+import {Navigate, Outlet, useNavigate} from "react-router-dom";
 import {apiGet} from "../api/client.ts";
-import {getToken} from "../auth/token.ts";
+import {getToken, clearToken} from "../auth/token.ts";
+import Header from "../components/Header.tsx";
 
-type AuthStatus = "loading" | "authenticated" | "unauthenticated";
+
+type User = {
+    id: number;
+    email: string;
+    display_name: string;
+}
+
 
 function ProtectedRoute() {
-    const [status, setStatus] = useState<AuthStatus>(() =>
-        getToken() ? "loading" : "unauthenticated");
+    const navigate = useNavigate();
+    const [user, setUser] = useState<User | null>(null);
+    const [loading, setLoading] = useState(() => getToken() !== null);
 
     useEffect(() => {
         if (!getToken()) return;
         apiGet("/auth/me")
-            .then((response) => setStatus(response.ok ? "authenticated" : "unauthenticated"))
-            .catch(() => setStatus("unauthenticated"));}, []);
+            .then(async (response) => setUser(response.ok ? await response.json() : null))
+            .catch(() => setUser(null))
+            .finally(() => setLoading(false));}, []);
 
-    if (status === "loading") {
-        return <p>Ladataan...</p>;}
+    function handleLogout() { clearToken(); setUser(null);
+        navigate("/login", {replace: true});}
 
-    if (status === "unauthenticated") {
-        return <Navigate to="/login" replace />;}
-    return <Outlet />;
+    if (loading) {
+        return <p>Ladataan</p>;}
+
+    if (!user) { return <Navigate to="/login" replace />;}
+
+    return (
+        <>
+            <Header displayName={user.display_name} email={user.email} onLogout={handleLogout} />
+            <Outlet />
+        </>
+    );
 }
 
 export default ProtectedRoute;
