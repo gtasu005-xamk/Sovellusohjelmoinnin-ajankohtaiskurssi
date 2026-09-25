@@ -17,7 +17,13 @@ class Settings(BaseSettings):
     SQLADMIN_USERNAME: str = "admin"
     SQLADMIN_PASSWORD: str = "admin"
     SQLADMIN_SECRET_KEY: str = "vaihdaminut"
-    SECRET_KEY: str 
+    SECRET_KEY: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+
+    @property
+    def cors_origins_list(self) -> list[str]:
+        return [origin.strip() 
+        for origin in self.CORS_ORIGINS.split(",") 
+        if origin.strip()]
 
 settings = Settings()

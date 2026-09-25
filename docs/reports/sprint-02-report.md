@@ -165,8 +165,8 @@ KUVA PUUTTUU
 
 ### S2-13 — CORS lockdown (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S2-13: CORS lockdown
 - **Demonstration:**
   1. **Do this:** From the frontend origin, trigger an API call (for example health or `/auth/me`). Open DevTools → Network. Select the API request and open Headers.
   2. **Capture:** Screenshot of the request/response headers showing the allowed origin behavior for your SPA origin.
@@ -174,7 +174,7 @@ KUVA PUUTTUU
   4. **Must not show:** Authorization Bearer values—collapse or crop that header.
   5. **Save as:** `docs/reports/images/sprint-02/s2-13-cors.png`
   6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+- **Used AI?** No
 
 ### S2-14 — Register page (Must)
 
