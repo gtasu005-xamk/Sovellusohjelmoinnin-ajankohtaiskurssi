@@ -231,16 +231,16 @@ KUVA PUUTTUU
 
 ### S2-18 — Auth + SQLAdmin README notes (Should)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done 
+- **PR / commit:**S2-18: Auth + SQLAdmin README notes
 - **Demonstration:**
   1. **Do this:** Open the README section that documents auth (register/login) and `/admin` (env credentials, separate from JWT).
   2. **Capture:** Screenshot of that README section.
   3. **Must show:** Auth and SQLAdmin documented (URLs / purpose; placeholder credentials only if they match `.env.example`, not production secrets).
   4. **Must not show:** Real production passwords.
   5. **Save as:** `docs/reports/images/sprint-02/s2-18-readme.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** README erottaa sovelluksen JWT-kirjautumisen ja SQLAdminin env-tunnukset.
+- **Used AI?** Yes 
 
 ### Stretch (only if you did them)
 
@@ -288,25 +288,29 @@ For each stretch below that you completed: Status, PR / commit, Used AI? Add Dem
 
 Sprint 2 is **three weeks**.
 
-- **Week 1** (schema, seed, SQLAdmin):
-- **Week 2** (bcrypt, JWT, CORS):
-- **Week 3** (Login/Register UI, `localStorage`, gated layout):
-- Who did what:
-- One blocker and how you unblocked it:
+- **Week 1** (schema, seed, SQLAdmin): SQLAlchemy-mallit (User, ActivityType, UnitType ja niiden linkkitaulu), Alembic-migraatiot, järjestelmäkatalogin seed ja SQLAdmin-näkymät /admin-osoitteeseen.
+- **Week 2** (bcrypt, JWT, CORS): Salasanojen hashaus bcryptillä, JWT-apufunktiot (PyJWT), register-, login- ja me-endpointit sekä CORS-allowlist frontendin originille.
+- **Week 3** (Login/Register UI, `localStorage`, gated layout): Register- ja Login-sivut, tokenin tallennus localStorageen, Bearer-header keskitetysti API-clientissa, suojattu layout, käyttäjän näyttö ja logout sekä README-päivitys.
+- Who did what: Tein kaikki tiketit itse.
+- One blocker and how you unblocked it: Sprint 1:n jaettu API-client (S1-11) puuttui, vaikka Register-sivu tarvitsi sitä. Tein minimaalisen clientin ja .env.example-tiedoston erillisenä committina ennen S2-14:ää.
+
 
 ## Decisions
 
 Two to four technical choices with why (for example JWT library, CORS origin, what you store in `localStorage`).
 
-1.
-2.
+1. **PyJWT + HS256:** Kevyt ja yleinen kirjasto. Token sisältää vain käyttäjän id:n  ja vanhenemisajan, ja allekirjoitusavain luetaan `.env`:stä.
+
+2. **bcrypt suoraan ilman passlibiä:** Riittää hashaukseen ja tarkistukseen, ja riippuvuuksia jää vähemmän.
 
 ## What we learned
 
 Note what you actually used. Tools this sprint: SQLAlchemy, Alembic, psycopg, SQLAdmin, bcrypt (or passlib), JWT, FastAPI security (`HTTPBearer`), CORSMiddleware, `localStorage`.
 
-- What clicked:
-- One thing you would do differently:
+- What clicked: autentikoinnin kokonaisuus: login palauttaa tokenin, frontend tallentaa sen ja lähettää Bearer-headerissa, ja backend tunnistaa käyttäjän `HTTPBearer`-riippuvuudella. 
+- One thing you would do differently: Tarkistaisin edellisen sprintin riippuvuudet (esim. puuttuva S1-11) ennen uuden sprintin aloittamista, jolloin puuttuvat palat eivät tulisi yllätyksenä kesken tiketin.
+
+
 
 ## Carry-over
 
@@ -320,12 +324,12 @@ Here, cover your **overall** AI use during this sprint (Cursor, ChatGPT, Copilot
 
 If you marked **No** on every ticket, write a short note that you did not use AI coding assistants this sprint (you may still answer verification / independence questions briefly).
 
-- **Where AI helped most this sprint** (themes, ticket IDs, or areas—not a ticket-by-ticket dump):
-- **What I typically accepted from AI suggestions:**
-- **What I typically rejected or reworked, and why:**
-- **How I verified AI-assisted work** (tests, `/docs`, manual demos, reviews):
-- **What I can now explain or do independently** that I relied on AI for earlier:
-- **Anything I would do differently with AI next sprint:**
+- **Where AI helped most this sprint** (themes, ticket IDs, or areas—not a ticket-by-ticket dump): Frontendin auth-polussa, API-clientin rakenne, token-käsittely ja suojattu layout. Lisäksi README-dokumentaation luonti.
+- **What I typically accepted from AI suggestions:** Rakenne- ja toteutusehdotukset, jotka noudattivat projektin olemassa olevaa koodityyliä ja tiketin rajauksia.
+- **What I typically rejected or reworked, and why:** Karsin ehdotuksia minimaalisemmiksi, esimerkiksi API-clientista jätettiin erillinen virheluokka pois. Tavoitteena oli pitää muutokset pieninä ja tiketin laajuudessa.
+- **How I verified AI-assisted work** (tests, `/docs`, manual demos, reviews): Testasin toiminnot käsin selaimessa (rekisteröinti, kirjautuminen, refresh, logout, suojattu reitti), tarkistin pyynnöt ja headerit DevToolsilla.
+- **What I can now explain or do independently** that I relied on AI for earlier: Bearer-headerin liittämisen keskitetysti API-clientissa sekä suojatun reitin toteutuksen React Routerin Outletilla
+- **Anything I would do differently with AI next sprint:** Pyytäisin minimaalisen ratkaisun heti alussa ja tarkistaisin riippuvuuksien tilan (esim. puuttuvat aiemmat tiketit) ennen toteutusta.
 
 Do not paste secrets, full JWTs, or `.env` values.
 
