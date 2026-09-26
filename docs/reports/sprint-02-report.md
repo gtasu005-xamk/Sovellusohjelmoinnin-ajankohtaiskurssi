@@ -267,16 +267,16 @@ For each stretch below that you completed: Status, PR / commit, Used AI? Add Dem
 
 #### S2-S3 — API test register / login / me (if done)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S2-S3: API test register / login / me
 - **Demonstration:**
   1. **Do this:** Run the documented `pytest` command for auth API tests.
   2. **Capture:** Terminal screenshot showing tests passed.
   3. **Must show:** Passing auth-related tests (register/login/me or equivalent names).
   4. **Must not show:** Secrets in the command line.
   5. **Save as:** `docs/reports/images/sprint-02/s2-s3-pytest.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** Onnistuneet pytestit.
+- **Used AI?** Yes
 
 #### S2-S4 — Keep SQLAdmin views in sync (if done)
 

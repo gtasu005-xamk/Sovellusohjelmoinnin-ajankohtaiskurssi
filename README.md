@@ -66,3 +66,9 @@ Ensimmäisen käyttäjän luonti
 
 Salasanasäännöt (rekisteröinti): 8–64 merkkiä, vähintään yksi iso kirjain ja yksi numero. Muuten HTTP 422.
 Demotunnus: demo@example.com / Demo1234 / DisplayName: DemoTunnus
+
+Auth API -testit (register → login → /auth/me, SQLite-muistikanta, ei vaadi Postgresia):
+```
+cd backend
+.venv\Scripts\python -m pytest
+```
