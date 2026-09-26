@@ -26,6 +26,12 @@ class AdminAuth(AuthenticationBackend):
     async def authenticate(self, request: Request) -> bool:
         return request.session.get("admin") is not None
 
+# /admin-muistilista, kun lisäät uuden ORM-mallin:
+# 1. Tee sille ModelView tähän tiedostoon (column_list, searchable, sortable).
+# 2. Rekisteröi se create_admin():ssa: admin.add_view(...).
+# 3. Pidä salaisuudet (password_hash, tokenit) poissa: column_list, column_details_exclude_list, form_excluded_columns.
+# 4. Tarkista /admin ennen demoa.
+
 
 class UserAdmin(ModelView, model=User):
     name = "User"
@@ -34,6 +40,9 @@ class UserAdmin(ModelView, model=User):
     column_details_exclude_list = [User.password_hash]
     column_searchable_list = [User.email]
     column_sortable_list = [User.id, User.email, User.created_at]
+    form_excluded_columns = [User.password_hash]
+    can_create = False
+
 
 
 class ActivityTypeAdmin(ModelView, model=ActivityType):

@@ -280,9 +280,9 @@ For each stretch below that you completed: Status, PR / commit, Used AI? Add Dem
 
 #### S2-S4 — Keep SQLAdmin views in sync (if done)
 
-- **Status:**
-- **PR / commit:**
-- **Used AI?** Yes / No
+- **Status:** Done 
+- **PR / commit:** S2-S4: Keep SQLAdmin views in sync
+- **Used AI?**  No
 
 ## How we worked
 
