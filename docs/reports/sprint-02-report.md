@@ -248,16 +248,16 @@ For each stretch below that you completed: Status, PR / commit, Used AI? Add Dem
 
 #### S2-S1 — Stronger password rules (if done)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done 
+- **PR / commit:** S2-S1: Stronger password rules
 - **Demonstration:**
   1. **Do this:** In `/docs` or the Register UI, submit a deliberately weak password that your rules reject.
   2. **Capture:** Screenshot of HTTP 422 (or your documented validation error) with the password value cropped.
   3. **Must show:** Validation failure for a weak password (422 or equivalent).
   4. **Must not show:** The weak password text if it is still readable—crop it.
   5. **Save as:** `docs/reports/images/sprint-02/s2-s1-weak-password.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** 422 Error - liian yleiselle syötetylle salasanalle.
+- **Used AI?** No
 
 #### S2-S2 — Email normalization (if done)
 
