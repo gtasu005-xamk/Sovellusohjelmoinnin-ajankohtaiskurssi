@@ -64,3 +64,5 @@ Ensimmäisen käyttäjän luonti
 2. Onnistunut rekisteröinti ohjaa /login-sivulle, kirjaudu samoilla tunnuksilla.
 3. Etusivun yläreunassa näkyy nimimerkki ja sähköposti (haettu /auth/me:sta), ja käyttäjä näkyy myös SQLAdminin Users-taulussa.
 
+Salasanasäännöt (rekisteröinti): 8–64 merkkiä, vähintään yksi iso kirjain ja yksi numero. Muuten HTTP 422.
+Demotunnus: demo@example.com / Demo1234 / DisplayName: DemoTunnus
