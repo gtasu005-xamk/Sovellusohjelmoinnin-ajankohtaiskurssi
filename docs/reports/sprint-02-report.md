@@ -261,9 +261,9 @@ For each stretch below that you completed: Status, PR / commit, Used AI? Add Dem
 
 #### S2-S2 — Email normalization (if done)
 
-- **Status:**
-- **PR / commit:**
-- **Used AI?** Yes / No
+- **Status:**  Done
+- **PR / commit:** S2-S2: Email normalization
+- **Used AI?** No
 
 #### S2-S3 — API test register / login / me (if done)
 

@@ -1,15 +1,16 @@
-from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator, AfterValidator
 from pydantic_core import PydanticCustomError
-
+from typing import Annotated
 
 common_passwords = [
     "password", "12345678", "qwerty1234","salasana", "salasana1","admin1234",
 
 ]
 
+NormalizedEmail = Annotated[EmailStr, AfterValidator(str.lower)]
 
 class RegisterRequest(BaseModel):
-    email: EmailStr
+    email: NormalizedEmail
     password: str = Field(min_length=8, max_length=64)
     display_name: str = Field(min_length=8)
 
@@ -30,7 +31,7 @@ class UserPublic(BaseModel):
 
 
 class LoginRequest(BaseModel):
-    email: EmailStr
+    email: NormalizedEmail
     password: str = Field(min_length=8, max_length=64)
 
 
