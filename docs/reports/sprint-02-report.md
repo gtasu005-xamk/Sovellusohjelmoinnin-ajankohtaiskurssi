@@ -4,7 +4,7 @@ Copy this file to `docs/reports/sprint-02.md` in **your** repo and fill the blan
 
 | Field        | Your answer |
 | ------------ | ----------- |
-| **Dates**    |   X.9.2026   
+| **Dates**    |   26.9.2026   
 | **Names**    |Tatu Suuripää 
 | **Repo URL** |https://github.com/gtasu005-xamk/Sovellusohjelmoinnin-ajankohtaiskurssi             
 | **Branch**   |  Master     |
@@ -35,7 +35,6 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
 - **Used AI?** Yes - Fiksaamaan configissa database_url
 
 ### S2-02 — User model (Must)
- KUVA puuttuu
 - **Status:** Done
 - **PR / commit:** S2-02: User Model
 - **Demonstration:** 
@@ -48,7 +47,6 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
 - **Used AI?**  No
 
 ### S2-03 — ActivityType model (Must)
-Kuva puuttuu 
 - **Status:** Done
 - **PR / commit:** S2-03: ActivityType model
 - **Demonstration:**
@@ -61,7 +59,6 @@ Kuva puuttuu
 - **Used AI?** No
 
 ### S2-04 — UnitType model and activity links (Must)
-Kuva puuttuu
 - **Status:** Done 
 - **PR / commit:** S2-04: UnitType model and activity links
 - **Demonstration:**
@@ -87,7 +84,6 @@ Kuva puuttuu
 - **Used AI?** No
 
 ### S2-06 — Seed system catalog (Must)
-KUVA PUUTTUU 
 - **Status:** Done
 - **PR / commit:** S2-06: Seed system catalog
 - **Demonstration:**
