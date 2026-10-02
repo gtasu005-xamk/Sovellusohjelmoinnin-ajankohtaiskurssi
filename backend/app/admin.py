@@ -4,7 +4,7 @@ from starlette.requests import Request
 
 from app.core.config import settings
 from app.db.session import engine
-from app.models import User, ActivityType, UnitType, ActivityTypeUnitType
+from app.models import User, ActivityType, UnitType, ActivityTypeUnitType, Goal
 
 class AdminAuth(AuthenticationBackend):
 
@@ -79,6 +79,11 @@ class ActivityTypeUnitTypeAdmin(ModelView, model=ActivityTypeUnitType):
         ActivityTypeUnitType.sort_order,
     ]
 
+class GoalAdmin(ModelView, model=Goal):
+    name = "Goal"
+    name_plural = "Goals"
+    column_list = [Goal.id, Goal.user_id, Goal.unit_type, Goal.activity_type,
+                   Goal.target_value, Goal.period, Goal.active]
 
 def create_admin(app) -> Admin:
     admin = Admin(
@@ -90,4 +95,5 @@ def create_admin(app) -> Admin:
     admin.add_view(ActivityTypeAdmin)
     admin.add_view(UnitTypeAdmin)
     admin.add_view(ActivityTypeUnitTypeAdmin)
+    admin.add_view(GoalAdmin)
     return admin

@@ -35,9 +35,9 @@ Skip stretch tickets you did not do.
 
 ### S3-02 — Goal model and migration (Must)
 
-- **Status:** Done / deferred (why):
-- **PR / commit:**
-- **Used AI?** Yes / No
+- **Status:** Done 
+- **PR / commit:** S3-02: Goal model + migration
+- **Used AI?** No
 
 ### S3-03 — Plan model and migration (Must)
 
