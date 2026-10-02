@@ -47,8 +47,8 @@ Skip stretch tickets you did not do.
 
 ### S3-04 — Sessions CRUD API (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S3-04: Sessions CRUD API
 - **Demonstration:**
   1. **Do this:** In `/docs`, authorize, create a session, list sessions.
   2. **Capture:** Create + list responses.
@@ -56,7 +56,7 @@ Skip stretch tickets you did not do.
   4. **Must not show:** Full Bearer token.
   5. **Save as:** `docs/reports/images/sprint-03/s3-04-sessions-crud.png`
   6. **Caption:**
-- **Used AI?** Yes / No
+- **Used AI?** Yes (docs esimerkki + sessions.py)
 
 ### S3-05 — Session measurements planned and actual (Must)
 
