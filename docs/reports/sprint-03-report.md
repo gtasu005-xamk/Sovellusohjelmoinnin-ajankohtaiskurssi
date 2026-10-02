@@ -41,9 +41,9 @@ Skip stretch tickets you did not do.
 
 ### S3-03 — Plan model and migration (Must)
 
-- **Status:** Done / deferred (why):
-- **PR / commit:**
-- **Used AI?** Yes / No
+- **Status:** Done
+- **PR / commit:** S3-03: Plan model and migration
+- **Used AI?** Yes (fk debugging)
 
 ### S3-04 — Sessions CRUD API (Must)
 
