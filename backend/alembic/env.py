@@ -7,7 +7,7 @@ from alembic import context
 
 from app.db.base import Base
 from app.core.config import settings
-from app.models import User, ActivityType, UnitType, ActivityTypeUnitType
+from app.models import User, ActivityType, UnitType, ActivityTypeUnitType, WorkoutSession, WorkoutSessionItem, WorkoutSessionMeasurement
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config

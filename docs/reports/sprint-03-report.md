@@ -29,9 +29,9 @@ Skip stretch tickets you did not do.
 
 ### S3-01 — Session models and migration (Must)
 
-- **Status:** Done / deferred (why):
-- **PR / commit:**
-- **Used AI?** Yes / No
+- **Status:** Done 
+- **PR / commit:** S3-01: Workout session, item and measurement models + migration
+- **Used AI?** No
 
 ### S3-02 — Goal model and migration (Must)
 
