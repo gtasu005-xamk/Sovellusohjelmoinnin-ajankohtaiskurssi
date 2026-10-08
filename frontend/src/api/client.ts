@@ -96,11 +96,45 @@ export type Plan = {
     name: string;
 }
 
+export type UnitLink = {
+    unit_type_id: number;
+    sort_order: number;
+    is_required: boolean;
+    per_set: boolean;
+    unit_type: {
+        id: number;
+        name: string;
+        slug: string;
+    };
+}
+
 export type ActivityType = {
     id: number;
     name: string;
     slug: string;
+    unit_links: UnitLink[];
 }
+
+export type SessionWrite = {
+    name: string;
+    session_at: string | null;
+    status: string;
+    notes: string | null;
+    intensity: number | null;
+    plan_id?: number;
+    items: {
+        activity_type_id: number;
+        sort_order: number;
+        notes: string | null;
+        measurements: {
+            unit_type_id: number;
+            planned_value: number | null;
+            actual_value: number | null;
+            set_index: number | null;
+        }[];
+    }[];
+}
+
 
 export function listSessions(filters: SessionFilters): Promise<Session[]> {
     const params = new URLSearchParams();
@@ -132,4 +166,16 @@ export function listPlans(): Promise<Plan[]> {
 
 export function listActivityTypes(): Promise<ActivityType[]> {
     return apiFetch<ActivityType[]>("/activity-types");
+}
+
+export function getSession(id: number): Promise<Session> {
+    return apiFetch<Session>(`/sessions/${id}`);
+}
+
+export function createSession(body: SessionWrite): Promise<Session> {
+    return apiFetch<Session>("/sessions", "POST", body);
+}
+
+export function updateSession(id: number, body: SessionWrite): Promise<Session> {
+    return apiFetch<Session>(`/sessions/${id}`, "PATCH", body);
 }

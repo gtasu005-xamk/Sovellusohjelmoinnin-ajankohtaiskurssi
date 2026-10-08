@@ -15,7 +15,7 @@ from app.core.config import settings
 app = FastAPI()
 app.add_middleware(CORSMiddleware,
     allow_origins=settings.cors_origins_list,
-    allow_methods=["GET", "POST", "OPTIONS", "PUT", "DELETE"],
+    allow_methods=["GET", "POST", "OPTIONS", "PUT", "DELETE", "PATCH"],
     allow_headers=["Authorization", "Content-Type"],
 )
 app.add_middleware(SessionMiddleware, secret_key=settings.SQLADMIN_SECRET_KEY)

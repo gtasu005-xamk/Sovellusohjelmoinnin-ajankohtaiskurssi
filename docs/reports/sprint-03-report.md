@@ -167,20 +167,20 @@ Skip stretch tickets you did not do.
   2. **Capture:** Screenshot of the list.
   3. **Must show:** Logged-in user’s sessions only.
   4. **Save as:** `docs/reports/images/sprint-03/s3-14-sessions-ui.png`
-  5. **Caption:**
+  5. **Caption:** Sessions lista käyttöliittymässä
 - **Used AI?** No
 
 ### S3-15 — Session designer planned and actual (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S3-15: Session designer planned and actual
 - **Demonstration:**
   1. **Do this:** Create/edit a multi-exercise session with planned and/or actual inputs from unit links.
   2. **Capture:** Designer UI.
   3. **Must show:** Catalog-driven fields (e.g. per-set strength + running).
   4. **Save as:** `docs/reports/images/sprint-03/s3-15-designer.png`
-  5. **Caption:**
-- **Used AI?** Yes / No
+  5. **Caption:** Session designer käyttöliittymässä
+- **Used AI?** Yes 
 
 ### S3-16 — Edit, delete, and clone session UI (Must)
 

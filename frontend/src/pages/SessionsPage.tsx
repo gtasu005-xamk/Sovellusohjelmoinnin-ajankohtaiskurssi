@@ -84,6 +84,7 @@ function SessionsPage() {
     return (
         <div>
             <h1>Sessiot</h1>
+            <Link to="/sessions/new">Uusi sessio</Link>
 
             <form onSubmit={handleApply}>
                 <label>Alkaen <input type="date" value={draft.from} disabled={unscheduled}

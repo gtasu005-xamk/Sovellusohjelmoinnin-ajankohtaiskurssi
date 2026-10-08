@@ -5,6 +5,7 @@ import RegisterPage from "./pages/RegisterPage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import ProtectedRoute from "./auth/ProtectedRoute.tsx";
 import SessionsPage from "./pages/SessionsPage.tsx";
+import SessionFormPage from "./pages/SessionFormPage.tsx";
 
 function App() {
   
@@ -13,6 +14,9 @@ function App() {
       <Route element={<ProtectedRoute />}>
               <Route path="/" element={<HomePage />} />
               <Route path="/sessions" element={<SessionsPage />} />
+              <Route path="/sessions/new" element={<SessionFormPage />} />
+              <Route path="/sessions/:sessionId" element={<SessionFormPage />} />
+
       </Route>
       
       <Route path="/register" element={<RegisterPage />} />
