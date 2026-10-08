@@ -128,15 +128,15 @@ Skip stretch tickets you did not do.
 
 ### S3-11 — Ownership enforcement (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S3-11: Ownership enforcement
 - **Demonstration:**
   1. **Do this:** As User B, call get/update/delete on User A’s session and plan IDs.
   2. **Capture:** Failed responses (404 or 403).
   3. **Must show:** Cross-user access denied; note your status convention.
   4. **Save as:** `docs/reports/images/sprint-03/s3-11-ownership.png`
-  5. **Caption:**
-- **Used AI?** Yes / No
+  5. **Caption:** Käyttäjä B ei pääse käyttäjän A sessions tai plan käsiksi
+
 
 ### S3-12 — Calendar API (Must)
 
