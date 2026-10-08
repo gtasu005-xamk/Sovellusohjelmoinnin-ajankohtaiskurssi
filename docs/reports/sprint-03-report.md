@@ -109,9 +109,9 @@ Skip stretch tickets you did not do.
 
 ### S3-09 — Activity types API (Must)
 
-- **Status:** Done / deferred (why):
-- **PR / commit:**
-- **Used AI?** Yes / No
+- **Status:** Done 
+- **PR / commit:** S3-09: Activity types API
+- **Used AI?** No
 
 ### S3-10 — Goals CRUD API (Must)
 

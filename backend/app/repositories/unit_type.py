@@ -2,6 +2,10 @@ from sqlalchemy.orm import Session
 from app.models.unit_type import UnitType
 
 
+def get_by_id(db: Session, unit_type_id: int) -> UnitType | None:
+    return db.query(UnitType).filter(UnitType.id == unit_type_id).first()
+
+
 def get_by_slug(db: Session, slug: str) -> UnitType | None:
     return db.query(UnitType).filter(UnitType.slug == slug).first()
 

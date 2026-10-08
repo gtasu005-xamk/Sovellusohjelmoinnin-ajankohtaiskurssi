@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 
 from app.admin import create_admin
+from app.api.activity_types import router as activity_types_router
 from app.api.auth import router as auth_router
 from app.api.health import router as health_router
 from app.api.plans import router as plans_router
@@ -20,6 +21,7 @@ app.include_router(health_router)
 app.include_router(auth_router)
 app.include_router(sessions_router)
 app.include_router(plans_router)
+app.include_router(activity_types_router)
 create_admin(app)
 
 
