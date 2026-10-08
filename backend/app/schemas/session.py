@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 SessionStatus = Literal["planned", "in_progress", "completed"]
 
@@ -11,6 +11,12 @@ class MeasurementIn(BaseModel):
     planned_value: float | None = None
     actual_value: float | None = None
     set_index: int | None = None
+
+    @model_validator(mode="after")
+    def check_values(self):
+        if self.planned_value is None and self.actual_value is None:
+            raise ValueError("planned_value or actual_value is required")
+        return self
 
 
 class ItemIn(BaseModel):

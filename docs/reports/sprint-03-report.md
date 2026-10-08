@@ -55,13 +55,13 @@ Skip stretch tickets you did not do.
   3. **Must show:** Session owned by the authenticated user.
   4. **Must not show:** Full Bearer token.
   5. **Save as:** `docs/reports/images/sprint-03/s3-04-sessions-crud.png`
-  6. **Caption:**
+  6. **Caption:** Swagger-UI:ssa testattu session POST ja GET
 - **Used AI?** Yes (docs esimerkki + sessions.py)
 
 ### S3-05 — Session measurements planned and actual (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S3-05: Session measurements planned and actual
 - **Demonstration:**
   1. **Do this:** Save measurements with `planned_value` and/or `actual_value` using catalog `unit_type_id` (e.g. strength `per_set`).
   2. **Capture:** Request/response showing both fields where relevant.
@@ -69,7 +69,7 @@ Skip stretch tickets you did not do.
   4. **Must not show:** Tokens.
   5. **Save as:** `docs/reports/images/sprint-03/s3-05-measurements.png`
   6. **Caption:**
-- **Used AI?** Yes / No
+- **Used AI?** No
 
 ### S3-06 — Session filters (Must)
 

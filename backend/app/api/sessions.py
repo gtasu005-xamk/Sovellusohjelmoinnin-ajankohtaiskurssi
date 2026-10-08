@@ -6,13 +6,17 @@ from app.db.session import get_db
 from app.models.user import User
 from app.schemas.session import SessionCreate, SessionOut, SessionUpdate
 from app.services import sessions as session_service
-from app.services.sessions import PlanNotFoundError, SessionNotFoundError
+from app.services.sessions import InvalidMeasurementError, PlanNotFoundError, SessionNotFoundError
 
 router = APIRouter(prefix="/sessions", tags=["sessions"])
 
 
 def _not_found(detail: str) -> HTTPException:
     return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=detail)
+
+
+def _invalid(error: Exception) -> HTTPException:
+    return HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(error))
 
 
 @router.get("", response_model=list[SessionOut])
@@ -27,6 +31,8 @@ def create_session(body: SessionCreate, db: Session = Depends(get_db),
         return session_service.create_session(db, current_user, body)
     except PlanNotFoundError:
         raise _not_found("Plan not found")
+    except InvalidMeasurementError as e:
+        raise _invalid(e)
 
 
 @router.get("/{session_id}", response_model=SessionOut)
@@ -47,6 +53,8 @@ def update_session(session_id: int, body: SessionUpdate, db: Session = Depends(g
         raise _not_found("Session not found")
     except PlanNotFoundError:
         raise _not_found("Plan not found")
+    except InvalidMeasurementError as e:
+        raise _invalid(e)
 
 
 @router.delete("/{session_id}", status_code=status.HTTP_204_NO_CONTENT)
