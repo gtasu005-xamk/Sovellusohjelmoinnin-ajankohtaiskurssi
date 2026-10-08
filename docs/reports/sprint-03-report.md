@@ -152,10 +152,11 @@ Skip stretch tickets you did not do.
 
 ### S3-13 — TanStack Query setup (Must)
 
-- **Status:** Done / deferred (why):
-- **PR / commit:**
-- **Used AI?** Yes / No
-- **Note your query-key convention**:
+- **Status:** Done
+- **PR / commit:** S3-13: TanStack Query setup
+- **Used AI?** No
+- **Note your query-key convention**: Avaimet ovat tiedostossa /frontend/src/api/queryKeys.ts. Avain on resurssin nimi ja sen suodattimet, esim. ['sessions', filters] tai ['calendar', from, to, planId]. Muutoksen jälkeen invalidoidaan resurssin nimi, esim. ['sessions'].
+
 
 ### S3-14 — Sessions list and filters UI (Must)
 

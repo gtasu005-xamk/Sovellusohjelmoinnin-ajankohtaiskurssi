@@ -1,9 +1,9 @@
-import {useEffect, useState} from "react";
 import {Navigate, Outlet, useNavigate} from "react-router-dom";
-import {apiGet} from "../api/client.ts";
 import {getToken, clearToken} from "../auth/token.ts";
 import Header from "../components/Header.tsx";
-
+import {useQuery} from "@tanstack/react-query";
+import {apiFetch} from "../api/client.ts";
+import {queryKeys} from "../api/queryKeys.ts";
 
 type User = {
     id: number;
@@ -14,23 +14,29 @@ type User = {
 
 function ProtectedRoute() {
     const navigate = useNavigate();
-    const [user, setUser] = useState<User | null>(null);
-    const [loading, setLoading] = useState(() => getToken() !== null);
+    const token = getToken();
+    const {data: user, isLoading, isError} = useQuery({
+        queryKey: queryKeys.me(token),
+        queryFn: () => apiFetch<User>("/auth/me"),
+        enabled: token !== null,
+    });
 
-    useEffect(() => {
-        if (!getToken()) return;
-        apiGet("/auth/me")
-            .then(async (response) => setUser(response.ok ? await response.json() : null))
-            .catch(() => setUser(null))
-            .finally(() => setLoading(false));}, []);
+    function handleLogout() {
+        clearToken();
+        navigate("/login", {replace: true});
+    }
 
-    function handleLogout() { clearToken(); setUser(null);
-        navigate("/login", {replace: true});}
+    if (!token) {
+        return <Navigate to="/login" replace />;
+    }
 
-    if (loading) {
-        return <p>Ladataan</p>;}
+    if (isLoading) {
+        return <p>Ladataan</p>;
+    }
 
-    if (!user) { return <Navigate to="/login" replace />;}
+    if (isError || !user) {
+        return <Navigate to="/login" replace />;
+    }
 
     return (
         <>
