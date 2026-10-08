@@ -160,15 +160,15 @@ Skip stretch tickets you did not do.
 
 ### S3-14 — Sessions list and filters UI (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S3-14: Sessions list and filters UI
 - **Demonstration:**
   1. **Do this:** Open Sessions in the UI with filters visible.
   2. **Capture:** Screenshot of the list.
   3. **Must show:** Logged-in user’s sessions only.
   4. **Save as:** `docs/reports/images/sprint-03/s3-14-sessions-ui.png`
   5. **Caption:**
-- **Used AI?** Yes / No
+- **Used AI?** No
 
 ### S3-15 — Session designer planned and actual (Must)
 

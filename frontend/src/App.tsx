@@ -4,6 +4,7 @@ import './App.css'
 import RegisterPage from "./pages/RegisterPage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import ProtectedRoute from "./auth/ProtectedRoute.tsx";
+import SessionsPage from "./pages/SessionsPage.tsx";
 
 function App() {
   
@@ -11,6 +12,7 @@ function App() {
     <Routes>
       <Route element={<ProtectedRoute />}>
               <Route path="/" element={<HomePage />} />
+              <Route path="/sessions" element={<SessionsPage />} />
       </Route>
       
       <Route path="/register" element={<RegisterPage />} />
