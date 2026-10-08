@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from sqlalchemy.orm import Session
 
 from app.models.user import User
@@ -19,6 +21,10 @@ class PlanNotFoundError(Exception):
 
 
 class InvalidMeasurementError(Exception):
+    pass
+
+
+class InvalidRangeError(Exception):
     pass
 
 
@@ -56,8 +62,30 @@ def _build_items(items: list[ItemIn]) -> list[WorkoutSessionItem]:
     ]
 
 
-def list_sessions(db: Session, user: User) -> list[WorkoutSession]:
-    return session_repo.list_by_user(db, user.id)
+def list_sessions(
+    db: Session,
+    user: User,
+    *,
+    from_date: datetime | None = None,
+    to_date: datetime | None = None,
+    status: str | None = None,
+    activity_type_id: int | None = None,
+    unscheduled: bool | None = None,
+    plan_id: int | None = None,
+) -> list[WorkoutSession]:
+    if from_date is not None and to_date is not None and from_date > to_date:
+        raise InvalidRangeError()
+
+    return session_repo.list_by_user(
+        db,
+        user.id,
+        from_date=from_date,
+        to_date=to_date,
+        status=status,
+        activity_type_id=activity_type_id,
+        unscheduled=unscheduled,
+        plan_id=plan_id,
+    )
 
 
 # Toisen käyttäjän sessio näyttää samalta kuin olematon: 404.

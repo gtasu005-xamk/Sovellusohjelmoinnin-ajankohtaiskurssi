@@ -1,12 +1,14 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from datetime import datetime
+
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
 from app.core.deps import get_current_user
 from app.db.session import get_db
 from app.models.user import User
-from app.schemas.session import SessionCreate, SessionOut, SessionUpdate
+from app.schemas.session import SessionCreate, SessionOut, SessionStatus, SessionUpdate
 from app.services import sessions as session_service
-from app.services.sessions import InvalidMeasurementError, PlanNotFoundError, SessionNotFoundError
+from app.services.sessions import (InvalidMeasurementError, InvalidRangeError, PlanNotFoundError, SessionNotFoundError,)
 
 router = APIRouter(prefix="/sessions", tags=["sessions"])
 
@@ -20,8 +22,29 @@ def _invalid(error: Exception) -> HTTPException:
 
 
 @router.get("", response_model=list[SessionOut])
-def list_sessions(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    return session_service.list_sessions(db, current_user)
+def list_sessions(
+    from_date: datetime | None = Query(None, alias="from"),
+    to_date: datetime | None = Query(None, alias="to"),
+    session_status: SessionStatus | None = Query(None, alias="status"),
+    activity_type_id: int | None = None,
+    unscheduled: bool | None = None,
+    plan_id: int | None = None,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    try:
+        return session_service.list_sessions(
+            db,
+            current_user,
+            from_date=from_date,
+            to_date=to_date,
+            status=session_status,
+            activity_type_id=activity_type_id,
+            unscheduled=unscheduled,
+            plan_id=plan_id,
+        )
+    except InvalidRangeError:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="'from' must be before 'to'")
 
 
 @router.post("", response_model=SessionOut, status_code=status.HTTP_201_CREATED)

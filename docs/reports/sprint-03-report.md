@@ -68,20 +68,20 @@ Skip stretch tickets you did not do.
   3. **Must show:** Catalog-keyed planned/actual values—not free-text units.
   4. **Must not show:** Tokens.
   5. **Save as:** `docs/reports/images/sprint-03/s3-05-measurements.png`
-  6. **Caption:**
+  6. **Caption:** Onnistunut session luonti planned- ja actual-arvoilla katalogin unit_type_id:n perusteella.
 - **Used AI?** No
 
 ### S3-06 — Session filters (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S3-06: Session filters
 - **Demonstration:**
   1. **Do this:** Apply filters (`from`/`to`, status, unscheduled, and/or `plan_id`) in `/docs` or UI.
   2. **Capture:** Filtered result.
   3. **Must show:** List matching filters for the current user only.
   4. **Save as:** `docs/reports/images/sprint-03/s3-06-filters.png`
-  5. **Caption:**
-- **Used AI?** Yes / No
+  5. **Caption:** Onnistunut suodatus from/to perusteella.
+- **Used AI?** No
 
 ### S3-07 — Clone session API (Must)
 
