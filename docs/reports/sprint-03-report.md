@@ -115,15 +115,16 @@ Skip stretch tickets you did not do.
 
 ### S3-10 — Goals CRUD API (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S3-10: Goals CRUD API
 - **Demonstration:**
   1. **Do this:** Create/list a period goal with `unit_type_id` in `/docs`.
   2. **Capture:** Goal payload.
   3. **Must show:** Period goal keyed by catalog unit—not planned set values.
   4. **Save as:** `docs/reports/images/sprint-03/s3-10-goals.png`
-  5. **Caption:**
-- **Used AI?** Yes / No
+  5. **Caption:** Viikkotavoite katalogin yksiköllä (unit_type_id 2 = km) ja aktiviteetilla (running).
+
+- **Used AI?** Yes 
 
 ### S3-11 — Ownership enforcement (Must)
 
