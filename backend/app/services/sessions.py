@@ -9,7 +9,7 @@ from app.models.workout_session_measurement import WorkoutSessionMeasurement
 from app.repositories import activity_type as activity_type_repo
 from app.repositories import plan as plan_repo
 from app.repositories import session as session_repo
-from app.schemas.session import ItemIn, SessionCreate, SessionUpdate
+from app.schemas.session import ItemIn, SessionClone, SessionCreate, SessionUpdate
 
 
 class SessionNotFoundError(Exception):
@@ -123,6 +123,45 @@ def update_session(db: Session, user: User, session_id: int, data: SessionUpdate
     db.commit()
     db.refresh(session)
     return session
+
+
+def clone_session(db: Session, user: User, session_id: int, data: SessionClone) -> WorkoutSession:
+    source = get_session(db, user, session_id)
+    _check_plan(db, user, data.plan_id)
+
+    name = source.name
+    if data.name is not None:
+        name = data.name
+
+    clone = WorkoutSession(
+        user_id=user.id,
+        name=name,
+        session_at=data.session_at,
+        status="planned",
+        notes=source.notes,
+        plan_id=data.plan_id,
+        source_session_id=source.id,
+    )
+
+    for source_item in source.items:
+        item = WorkoutSessionItem(
+            activity_type_id=source_item.activity_type_id,
+            sort_order=source_item.sort_order,
+            notes=source_item.notes,
+        )
+        for source_measurement in source_item.measurements:
+            item.measurements.append(WorkoutSessionMeasurement(
+                unit_type_id=source_measurement.unit_type_id,
+                planned_value=source_measurement.planned_value,
+                actual_value=None,
+                set_index=source_measurement.set_index,
+            ))
+        clone.items.append(item)
+
+    session_repo.add(db, clone)
+    db.commit()
+    db.refresh(clone)
+    return clone
 
 
 def delete_session(db: Session, user: User, session_id: int) -> None:

@@ -85,15 +85,15 @@ Skip stretch tickets you did not do.
 
 ### S3-07 — Clone session API (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S3-07: Clone session API
 - **Demonstration:**
   1. **Do this:** Create a source session with planned values. Call `POST /sessions/{id}/clone`. Show clone has planned copied and actuals null/`source_session_id` set. Then edit the source (add an item) and show the clone unchanged.
   2. **Capture:** Clone response + proof of isolation (source vs clone).
   3. **Must show:** Snapshot clone + no cascade after source edit.
   4. **Save as:** `docs/reports/images/sprint-03/s3-07-clone.png`
-  5. **Caption:**
-- **Used AI?** Yes / No
+  5. **Caption:** Onnistunut kloonaus: planned-arvot kopioituvat, actual-arvot tyhjenevät, eikä lähteen muokkaus muuta kloonia.
+- **Used AI?** Yes
 
 ### S3-08 — Plans CRUD and attach API (Must)
 

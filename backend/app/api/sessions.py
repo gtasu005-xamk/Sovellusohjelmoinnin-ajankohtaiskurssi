@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from app.core.deps import get_current_user
 from app.db.session import get_db
 from app.models.user import User
-from app.schemas.session import SessionCreate, SessionOut, SessionStatus, SessionUpdate
+from app.schemas.session import SessionClone, SessionCreate, SessionOut, SessionStatus, SessionUpdate
 from app.services import sessions as session_service
 from app.services.sessions import (InvalidMeasurementError, InvalidRangeError, PlanNotFoundError, SessionNotFoundError,)
 
@@ -78,6 +78,19 @@ def update_session(session_id: int, body: SessionUpdate, db: Session = Depends(g
         raise _not_found("Plan not found")
     except InvalidMeasurementError as e:
         raise _invalid(e)
+
+
+@router.post("/{session_id}/clone", response_model=SessionOut, status_code=status.HTTP_201_CREATED)
+def clone_session(session_id: int, body: SessionClone | None = None, db: Session = Depends(get_db),
+                  current_user: User = Depends(get_current_user)):
+    if body is None:
+        body = SessionClone()
+    try:
+        return session_service.clone_session(db, current_user, session_id, body)
+    except SessionNotFoundError:
+        raise _not_found("Session not found")
+    except PlanNotFoundError:
+        raise _not_found("Plan not found")
 
 
 @router.delete("/{session_id}", status_code=status.HTTP_204_NO_CONTENT)

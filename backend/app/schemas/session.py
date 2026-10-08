@@ -56,6 +56,12 @@ class SessionUpdate(BaseModel):
     items: list[ItemIn] | None = None
 
 
+class SessionClone(BaseModel):
+    name: str | None = Field(default=None, min_length=1)
+    session_at: datetime | None = None
+    plan_id: int | None = None
+
+
 class MeasurementOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     id: int
