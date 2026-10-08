@@ -37,6 +37,24 @@ def list_by_user(
     return query.order_by(WorkoutSession.session_at.desc().nulls_last(), WorkoutSession.id.desc()).all()
 
 
+def list_for_calendar(
+    db: Session,
+    user_id: int,
+    from_date: datetime,
+    to_date: datetime,
+    plan_id: int | None = None,
+) -> list[WorkoutSession]:
+    query = db.query(WorkoutSession).filter(
+        WorkoutSession.user_id == user_id,
+        WorkoutSession.session_at.is_not(None),
+        WorkoutSession.session_at >= from_date,
+        WorkoutSession.session_at <= to_date,
+    )
+    if plan_id is not None:
+        query = query.filter(WorkoutSession.plan_id == plan_id)
+    return query.order_by(WorkoutSession.session_at, WorkoutSession.id).all()
+
+
 def get_for_user(db: Session, session_id: int, user_id: int) -> WorkoutSession | None:
     return (
         db.query(WorkoutSession)

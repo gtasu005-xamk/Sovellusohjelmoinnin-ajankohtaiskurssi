@@ -140,15 +140,15 @@ Skip stretch tickets you did not do.
 
 ### S3-12 — Calendar API (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S3-12: Calendar API
 - **Demonstration:**
   1. **Do this:** `GET /calendar?from=&to=` (optional `plan_id`) for dated sessions.
   2. **Capture:** Calendar response.
   3. **Must show:** Only current user’s sessions with `session_at` in range.
   4. **Save as:** `docs/reports/images/sprint-03/s3-12-calendar-api.png`
-  5. **Caption:**
-- **Used AI?** Yes / No
+  5. **Caption:** Kalenteri palauttaa kirjautuneen käyttäjän päivätyt sessiot valitulta aikaväliltä.
+- **Used AI?** No
 
 ### S3-13 — TanStack Query setup (Must)
 
