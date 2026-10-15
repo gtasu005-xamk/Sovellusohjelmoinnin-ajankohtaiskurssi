@@ -1,8 +1,8 @@
 import {useState, type FormEvent} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams, useLocation} from "react-router-dom";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {ApiError,createSession, getSession, listActivityTypes, listPlans, updateSession,
-        type ActivityType, type Plan, type SessionWrite,} from "../api/client.ts";
+import {ApiError,createSession, getSession, listActivityTypes, listPlans, updateSession, cloneSession, deleteSession,
+        type ActivityType, type Plan, type SessionWrite, type Session} from "../api/client.ts";
 import {queryKeys} from "../api/queryKeys.ts";
 import {draftFromSession, emptyDraft, emptyMeasurements, newItem, toSessionWrite,
         type ItemDraft, type SessionDraft} from "../sessions/draft.ts";
@@ -14,6 +14,17 @@ type SessionFormProps = {
     activityTypes: ActivityType[];
     plans: Plan[];
 };
+
+function errorMessage(error: Error): string {
+    if (error instanceof ApiError && error.status === 404) {
+        return "Session not found.";
+    }
+    if (error instanceof ApiError && error.status === 403) {
+        return "Et voi muuttaa tätä sessiota.";
+    }
+    return error.message;
+}
+
 
 function SessionForm({sessionId, initialDraft, activityTypes, plans}: SessionFormProps) {
     const navigate = useNavigate();
@@ -214,7 +225,7 @@ function SessionForm({sessionId, initialDraft, activityTypes, plans}: SessionFor
             </div>
 
             {formError && <p>{formError}</p>}
-            {mutation.isError && <p>{mutation.error.message}</p>}
+            {mutation.isError && <p>{errorMessage(mutation.error)}</p>}
             {saved && <p>Tallennettu.</p>}
 
             <button type="submit" disabled={mutation.isPending}>
@@ -224,9 +235,77 @@ function SessionForm({sessionId, initialDraft, activityTypes, plans}: SessionFor
     );
 }
 
+function SessionActions({session}: {session: Session}) {
+    const navigate = useNavigate();
+    const queryClient = useQueryClient();
+    const [cloneName, setCloneName] = useState(session.name);
+    const [cloneDate, setCloneDate] = useState("");
+    const [confirmDelete, setConfirmDelete] = useState(false);
+
+    const cloneMutation = useMutation({
+        mutationFn: () => cloneSession(session.id, {
+            name: cloneName.trim() ? cloneName.trim() : session.name,
+            session_at: cloneDate ? new Date(cloneDate).toISOString() : null,
+        }),
+        onSuccess: (copy) => {
+            queryClient.invalidateQueries({queryKey: ["sessions"]});
+            queryClient.invalidateQueries({queryKey: ["calendar"]});
+            navigate(`/sessions/${copy.id}`, {state: {cloned: true}});
+        },
+    });
+
+    const deleteMutation = useMutation({
+        mutationFn: () => deleteSession(session.id),
+        onSuccess: () => {
+            navigate("/sessions");
+            queryClient.removeQueries({queryKey: queryKeys.session(session.id)});
+            queryClient.invalidateQueries({queryKey: ["sessions"]});
+            queryClient.invalidateQueries({queryKey: ["calendar"]});
+        },
+    });
+
+    const busy = cloneMutation.isPending || deleteMutation.isPending;
+
+    return (
+    <div>
+        <h2>Kloonaa</h2>
+        <p>Kopio säilyttää planned-arvot, tyhjentää actual-arvot eikä kuulu mihinkään planiin.</p>
+        <label>
+            Kopion nimi
+            <input value={cloneName} onChange={(e) => setCloneName(e.target.value)} />
+        </label>
+        <label>
+            Kopion aika (tyhjä = ajastamaton)
+            <input type="datetime-local" value={cloneDate} onChange={(e) => setCloneDate(e.target.value)} />
+        </label>
+        <button type="button" onClick={() => cloneMutation.mutate()} disabled={busy}>
+            {cloneMutation.isPending ? "Kloonataan..." : "Kloonaa"}
+        </button>
+        {cloneMutation.isError && <p>{errorMessage(cloneMutation.error)}</p>}
+
+        <h2>Poista</h2>
+        {!confirmDelete && (
+            <button type="button" onClick={() => setConfirmDelete(true)} disabled={busy}>Poista sessio</button>)}
+        {confirmDelete && (
+            <div>
+                <p>Haluatko varmasti poistaa session?</p>
+                <button type="button" onClick={() => deleteMutation.mutate()} disabled={busy}>
+                    {deleteMutation.isPending ? "Poistetaan..." : "Kyllä, poista"}
+                </button>
+                <button type="button" onClick={() => setConfirmDelete(false)} disabled={busy}>Peruuta</button>
+            </div>
+        )}
+        {deleteMutation.isError && <p>{errorMessage(deleteMutation.error)}</p>}
+    </div>
+    );
+}
+
+
 function SessionFormPage() {
     const {sessionId} = useParams();
+    const location = useLocation();
     const id = sessionId ? Number(sessionId) : null;
+    const cloned = location.state?.cloned === true;
 
     const activityTypes = useQuery({queryKey: queryKeys.activityTypes, queryFn: listActivityTypes});
     const plans = useQuery({queryKey: queryKeys.plans, queryFn: listPlans});
@@ -262,6 +341,7 @@ function SessionFormPage() {
     return (
         <div>
             <h1>{id === null ? "Uusi sessio" : "Muokkaa sessiota"}</h1>
+            {cloned && <p>Sessio kloonattu: planned-arvot säilyivät, actual-arvot tyhjennettiin, plania ei kopioitu.</p>}
             <SessionForm
                 key={sessionId ?? "new"}
                 sessionId={id}
@@ -269,6 +349,7 @@ function SessionFormPage() {
                 activityTypes={activityList}
                 plans={planList}
             />
+            {session.data && <SessionActions key={session.data.id} session={session.data} />}
         </div>
     );
 }

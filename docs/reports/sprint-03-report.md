@@ -184,15 +184,15 @@ Skip stretch tickets you did not do.
 
 ### S3-16 — Edit, delete, and clone session UI (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done 
+- **PR / commit:** S3-16: Edit, delete, and clone session UI
 - **Demonstration:**
   1. **Do this:** Clone from the UI onto a date; optionally show delete confirm.
   2. **Capture:** Clone result in UI.
   3. **Must show:** Clone available from the session UI.
   4. **Save as:** `docs/reports/images/sprint-03/s3-16-clone-ui.png`
-  5. **Caption:**
-- **Used AI?** Yes / No
+  5. **Caption:** Toteutettu "Käsipäivä" kloonaus.
+- **Used AI?** No
 
 ### S3-17 — Activity type selector (Must)
 

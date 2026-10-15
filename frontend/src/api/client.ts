@@ -179,3 +179,11 @@ export function createSession(body: SessionWrite): Promise<Session> {
 export function updateSession(id: number, body: SessionWrite): Promise<Session> {
     return apiFetch<Session>(`/sessions/${id}`, "PATCH", body);
 }
+
+export function cloneSession(id: number, body: {name: string; session_at: string | null}): Promise<Session> {
+    return apiFetch<Session>(`/sessions/${id}/clone`, "POST", body);
+}
+
+export function deleteSession(id: number): Promise<void> {
+    return apiFetch<void>(`/sessions/${id}`, "DELETE");
+}
