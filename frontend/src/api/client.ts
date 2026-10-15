@@ -203,6 +203,25 @@ export function deleteSession(id: number): Promise<void> {
     return apiFetch<void>(`/sessions/${id}`, "DELETE");
 }
 
+export type CalendarEntry = {
+    id: number;
+    name: string;
+    session_at: string;
+    status: string;
+    plan_id: number | null;
+    source_session_id: number | null;
+}
+
+export function getCalendar(from: string, to: string, planId?: number): Promise<CalendarEntry[]> {
+    const params = new URLSearchParams();
+    params.set("from", from);
+    params.set("to", to);
+    if (planId !== undefined) {
+        params.set("plan_id", String(planId));
+    }
+    return apiFetch<CalendarEntry[]>(`/calendar?${params.toString()}`);
+}
+
 export function getPlan(id: number): Promise<PlanDetail> {
     return apiFetch<PlanDetail>(`/plans/${id}`);
 }

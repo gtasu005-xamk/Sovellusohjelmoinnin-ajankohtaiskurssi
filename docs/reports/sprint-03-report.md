@@ -214,15 +214,15 @@ Skip stretch tickets you did not do.
 
 ### S3-19 — Calendar UI (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done 
+- **PR / commit:** S3-19: Calendar UI
 - **Demonstration:**
   1. **Do this:** Show **month** and **week** views; clone onto a date if available.
   2. **Capture:** Both views (or clearly labeled tabs).
   3. **Must show:** In-app calendar driven by `session_at` (not Google sync).
   4. **Save as:** `docs/reports/images/sprint-03/s3-19-calendar-ui.png`
-  5. **Caption:**
-- **Used AI?** Yes / No
+  5. **Caption:** Ylempi kuva - viikkonäkymä, alempi kuva - kuukausinäkymä
+- **Used AI?**  No
 
 ### S3-20 — Dashboard recent sessions (Must)
 

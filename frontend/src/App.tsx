@@ -8,6 +8,7 @@ import SessionsPage from "./pages/SessionsPage.tsx";
 import SessionFormPage from "./pages/SessionFormPage.tsx";
 import PlansPage from "./pages/PlansPage.tsx";
 import PlanDetailPage from "./pages/PlanDetailPage.tsx";
+import CalendarPage from "./pages/CalendarPage.tsx";
 
 function App() {
   
@@ -20,6 +21,7 @@ function App() {
               <Route path="/sessions/:sessionId" element={<SessionFormPage />} />
               <Route path="/plans" element={<PlansPage />} />
               <Route path="/plans/:planId" element={<PlanDetailPage />} />
+              <Route path="/calendar" element={<CalendarPage />} />
 
       </Route>
       
