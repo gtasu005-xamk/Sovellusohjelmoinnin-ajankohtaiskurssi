@@ -238,15 +238,15 @@ Skip stretch tickets you did not do.
 
 ### S3-21 — Empty and error states (Should)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S3-21: Empty and error states
 - **Demonstration:**
   1. **Do this:** Show empty list and an error/retry state.
   2. **Capture:** Screenshot.
   3. **Must show:** Clear empty/error UX.
   4. **Save as:** `docs/reports/images/sprint-03/s3-21-empty-error.png`
-  5. **Caption:**
-- **Used AI?** Yes / No
+  5. **Caption:** Ylhäällä tyhjä sessiolista ja linkki ensimmäisen session luontiin. Alhaalla virhebanneri kun API ei vastaa.
+- **Used AI?** No
 
 ### S3-22 — IDOR demo documentation (Must)
 

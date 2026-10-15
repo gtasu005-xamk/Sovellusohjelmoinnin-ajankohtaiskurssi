@@ -1,13 +1,14 @@
 import {useState, type FormEvent} from "react";
 import {useNavigate, useParams, useLocation} from "react-router-dom";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {ApiError,createSession, getSession, listActivityTypes, listPlans, updateSession, cloneSession, deleteSession,
+import {ApiError, failureMessage, createSession, getSession, listActivityTypes, listPlans, updateSession, cloneSession, deleteSession,
         type ActivityType, type Plan, type SessionWrite, type Session} from "../api/client.ts";
 import {queryKeys} from "../api/queryKeys.ts";
 import {draftFromSession, emptyDraft, emptyMeasurements, newItem, toSessionWrite,
         type ItemDraft, type SessionDraft} from "../sessions/draft.ts";
 import MeasurementEditor from "../components/MeasurementEditor.tsx";
 import ActivityTypeSelect from "../components/ActivityTypeSelect.tsx";
+import {ErrorBanner} from "../components/StatusMessage.tsx";
 
 type SessionFormProps = {
     sessionId: number | null;
@@ -23,7 +24,7 @@ function errorMessage(error: Error): string {
     if (error instanceof ApiError && error.status === 403) {
         return "Et voi muuttaa tätä sessiota.";
     }
-    return error.message;
+    return failureMessage(error);
 }
 
 
@@ -232,7 +233,7 @@ function SessionForm({sessionId, initialDraft, activityTypes, plans}: SessionFor
             </div>
 
             {formError && <p>{formError}</p>}
-            {mutation.isError && <p>{errorMessage(mutation.error)}</p>}
+            {mutation.isError && <ErrorBanner message={errorMessage(mutation.error)} />}
             {saved && <p>Tallennettu.</p>}
 
             <button type="submit" disabled={mutation.isPending}>
@@ -288,7 +289,7 @@ function SessionActions({session}: {session: Session}) {
         <button type="button" onClick={() => cloneMutation.mutate()} disabled={busy}>
             {cloneMutation.isPending ? "Kloonataan..." : "Kloonaa"}
         </button>
-        {cloneMutation.isError && <p>{errorMessage(cloneMutation.error)}</p>}
+        {cloneMutation.isError && <ErrorBanner message={errorMessage(cloneMutation.error)} />}
 
         <h2>Poista</h2>
         {!confirmDelete && (
@@ -302,7 +303,7 @@ function SessionActions({session}: {session: Session}) {
                 <button type="button" onClick={() => setConfirmDelete(false)} disabled={busy}>Peruuta</button>
             </div>
         )}
-        {deleteMutation.isError && <p>{errorMessage(deleteMutation.error)}</p>}
+        {deleteMutation.isError && <ErrorBanner message={errorMessage(deleteMutation.error)} />}
     </div>
     );
 }
@@ -330,11 +331,11 @@ function SessionFormPage() {
         if (session.error instanceof ApiError && session.error.status === 404) {
             return <p>Session not found.</p>;
         }
-        return <p>{session.error.message}</p>;
+        return <ErrorBanner message={failureMessage(session.error)} />;
     }
 
     if (activityTypes.isError) {
-        return <p>{activityTypes.error.message}</p>;
+        return <ErrorBanner message={failureMessage(activityTypes.error)} />;
     }
 
     const activityList = activityTypes.data ?? [];

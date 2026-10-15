@@ -1,9 +1,10 @@
 import {useState} from "react";
 import {Link} from "react-router-dom";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {cloneSession, getCalendar, listPlans, type CalendarEntry, type Session} from "../api/client.ts";
+import {cloneSession, failureMessage, getCalendar, listPlans, type CalendarEntry, type Session} from "../api/client.ts";
 import {queryKeys} from "../api/queryKeys.ts";
 import {dateKey, moveCursor, rangeFor, sameDay, visibleDays, type CalendarView} from "../calendar/range.ts";
+import {EmptyState, ErrorBanner} from "../components/StatusMessage.tsx";
 
 const weekdays = ["Ma", "Ti", "Ke", "To", "Pe", "La", "Su"];
 
@@ -119,13 +120,19 @@ function CalendarPage() {
         )}
 
         {calendar.isLoading && <p>Ladataan</p>}
-        {calendar.isError && <p>{calendar.error.message}</p>}
-        {calendar.data && calendar.data.length === 0 && (
-            <p>
-                {planId
-                    ? "Valitulla planilla ei ole sessioita tällä aikavälillä."
-                    : "Tällä aikavälillä ei ole sessioita."}
-            </p>
+        {calendar.isError && <ErrorBanner message={failureMessage(calendar.error)} />}
+        {calendar.data && calendar.data.length === 0 && planId !== "" && (
+            <EmptyState
+                title="Valitulla planilla ei ole sessioita tällä aikavälillä."
+                text="Valitse All plans nähdäksesi kaikki sessiot."
+            />
+        )}
+        {calendar.data && calendar.data.length === 0 && planId === "" && (
+            <EmptyState
+                title="Tällä aikavälillä ei ole sessioita."
+                linkTo="/sessions/new"
+                linkText="Create your first session"
+            />
         )}
 
         <div className="calendar-grid">
@@ -165,7 +172,7 @@ function CalendarPage() {
                                 </button>
                                 <button type="button" onClick={() => setCloneSource(null)}>Peruuta</button>
                                 {cloneError && <p>{cloneError}</p>}
-                                {cloneMutation.isError && <p>{cloneMutation.error.message}</p>}
+                                {cloneMutation.isError && <ErrorBanner message={failureMessage(cloneMutation.error)} />}
                             </div>
                             )}
                         </div>

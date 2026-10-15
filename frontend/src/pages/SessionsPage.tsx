@@ -1,9 +1,10 @@
 import {useState, type FormEvent} from "react";
 import {Link} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
-import {listActivityTypes, listPlans, listSessions} from "../api/client.ts";
+import {failureMessage, listActivityTypes, listPlans, listSessions} from "../api/client.ts";
 import {queryKeys, type SessionFilters} from "../api/queryKeys.ts";
 import ActivityTypeSelect from "../components/ActivityTypeSelect.tsx";
+import {EmptyState, ErrorBanner} from "../components/StatusMessage.tsx";
 import {exerciseSummary, formatSessionDate} from "../sessions/display.ts";
 
 type Draft = {
@@ -141,12 +142,17 @@ function SessionsPage() {
             {formError && <p role="alert">{formError}</p>}
 
             {sessions.isLoading && <p>Ladataan</p>}
-            {sessions.isError && <p role="alert">{sessions.error.message}</p>}
+            {sessions.isError && <ErrorBanner message={failureMessage(sessions.error)} />}
 
-            {sessions.data && sessions.data.length === 0 && (
-                hasFilters
-                    ? <p>Mikään sessio ei vastaa suodattimia.</p>
-                    : <p>Ei vielä sessioita. Luo ensimmäinen sessiosi.</p>
+            {sessions.data && sessions.data.length === 0 && hasFilters && (
+                <EmptyState title="Mikään sessio ei vastaa suodattimia." text="Kokeile muuttaa tai tyhjentää suodattimet." />
+            )}
+            {sessions.data && sessions.data.length === 0 && !hasFilters && (
+                <EmptyState
+                    title="Ei vielä sessioita."
+                    linkTo="/sessions/new"
+                    linkText="Create your first session"
+                />
             )}
 
             {sessions.data && sessions.data.length > 0 && (

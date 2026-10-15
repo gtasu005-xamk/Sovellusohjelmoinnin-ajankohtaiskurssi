@@ -1,8 +1,9 @@
 import {useState, type FormEvent} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {createPlan, listPlans} from "../api/client.ts";
+import {createPlan, failureMessage, listPlans} from "../api/client.ts";
 import {queryKeys} from "../api/queryKeys.ts";
+import {EmptyState, ErrorBanner} from "../components/StatusMessage.tsx";
 
 function PlansPage() {
     const navigate = useNavigate();
@@ -46,9 +47,9 @@ function PlansPage() {
     if (plans.isLoading) {
         content = <p>Ladataan</p>;
     } else if (plans.isError) {
-        content = <p>{plans.error.message}</p>;
+        content = <ErrorBanner message={failureMessage(plans.error)} />;
     } else if (!plans.data || plans.data.length === 0) {
-        content = <p>Ei vielä planeja. Luo ensimmäinen plan.</p>;
+        content = <EmptyState title="Ei vielä planeja." text="Luo ensimmäinen plan alla olevalla lomakkeella." />;
     } else {
         content = (
             <ul>
@@ -91,7 +92,7 @@ function PlansPage() {
             </form>
 
             {formError && <p>{formError}</p>}
-            {createMutation.isError && <p>{createMutation.error.message}</p>}
+            {createMutation.isError && <ErrorBanner message={failureMessage(createMutation.error)} />}
         </div>
     );
 }

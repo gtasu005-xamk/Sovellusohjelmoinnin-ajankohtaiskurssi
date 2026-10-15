@@ -1,8 +1,9 @@
 import {Link} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
-import {listActivityTypes, listSessions} from "../api/client.ts";
+import {failureMessage, listActivityTypes, listSessions} from "../api/client.ts";
 import {queryKeys} from "../api/queryKeys.ts";
 import {exerciseSummary, formatSessionDate} from "../sessions/display.ts";
+import {EmptyState, ErrorBanner} from "../components/StatusMessage.tsx";
 
 function DashboardPage() {
     const sessions = useQuery({
@@ -16,7 +17,8 @@ function DashboardPage() {
     }
 
     if (sessions.isError) {
-        return <p>Sessioiden haku epäonnistui: {sessions.error.message}</p> }
+        return <ErrorBanner message={failureMessage(sessions.error)} />;
+    }
 
     const recent = [...(sessions.data ?? [])];
     recent.sort((a, b) => new Date(b.session_at ?? 0).getTime() - new Date(a.session_at ?? 0).getTime());
@@ -28,9 +30,11 @@ function DashboardPage() {
         <h2>Viimeisimmät sessiot</h2>
 
         {latest.length === 0 && (
-            <p>
-                Ei vielä päivättyjä sessioita. <Link to="/sessions/new">Create your first session</Link>
-            </p>
+            <EmptyState
+                title="Ei vielä päivättyjä sessioita."
+                linkTo="/sessions/new"
+                linkText="Create your first session"
+            />
         )}
         <ul>
             {latest.map((session) => (

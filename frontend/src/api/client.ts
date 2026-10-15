@@ -13,6 +13,16 @@ export class ApiError extends Error {
     }
 }
 
+export function failureMessage(error: Error): string {
+    if (error instanceof ApiError) {
+        return error.message;
+    }
+    if (error instanceof TypeError) {
+        return "Palvelimeen ei saatu yhteyttä.";
+    }
+    return error.message;
+}
+
 function buildHeaders(): HeadersInit {
     const headers: Record<string, string> = {"Content-Type": "application/json"};
     const token = getToken();

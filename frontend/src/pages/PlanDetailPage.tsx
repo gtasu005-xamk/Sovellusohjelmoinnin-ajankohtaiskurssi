@@ -1,18 +1,19 @@
 import {useState, type FormEvent} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {ApiError, attachSession, deletePlan, detachSession, getPlan, listSessions, updatePlan,
+import {ApiError, attachSession, deletePlan, detachSession, failureMessage, getPlan, listSessions, updatePlan,
     type PlanDetail,
     type Session,
 } from "../api/client.ts";
 import {queryKeys} from "../api/queryKeys.ts";
 import {formatSessionDate} from "../sessions/display.ts";
+import {ErrorBanner} from "../components/StatusMessage.tsx";
 
 function errorMessage(error: Error, notFoundText: string): string {
     if (error instanceof ApiError && error.status === 404) {
         return notFoundText;
     }
-    return error.message;
+    return failureMessage(error);
 }
 
 function PlanEditForm({plan}: {plan: PlanDetail}) {
@@ -73,7 +74,7 @@ function PlanEditForm({plan}: {plan: PlanDetail}) {
         <button type="submit" disabled={updateMutation.isPending}>Tallenna</button>
 
         {formError && <p>{formError}</p>}
-        {updateMutation.isError && <p>{errorMessage(updateMutation.error, "Plan not found.")}</p>}
+        {updateMutation.isError && <ErrorBanner message={errorMessage(updateMutation.error, "Plan not found.")} />}
         {saved && <p>Tallennettu.</p>}
     </form>
     );
@@ -136,7 +137,10 @@ function PlanDetailPage() {
     }
 
     if (plan.isError) {
-        return <p>{errorMessage(plan.error, "Plan not found.")}</p>;
+        if (plan.error instanceof ApiError && plan.error.status === 404) {
+            return <p>Plan not found.</p>;
+        }
+        return <ErrorBanner message={failureMessage(plan.error)} />;
     }
 
     if (!plan.data) {
@@ -186,7 +190,7 @@ function PlanDetailPage() {
             <h2>Ajastamattomat sessiot</h2>
             {unscheduled.length === 0 ? <p>Ei ajastamattomia sessioita.</p> : renderRows(unscheduled)}
 
-            {detachMutation.isError && <p>{errorMessage(detachMutation.error, "Session not found.")}</p>}
+            {detachMutation.isError && <ErrorBanner message={errorMessage(detachMutation.error, "Session not found.")} />}
 
             <h2>Liitä sessio</h2>
             <form onSubmit={handleAttach}>
@@ -198,7 +202,8 @@ function PlanDetailPage() {
                 </select>
                 <button type="submit" disabled={busy || selectedSessionId === ""}>Liitä</button>
             </form>
-            {attachMutation.isError && <p>{errorMessage(attachMutation.error, "Session not found.")}</p>}
+            {sessions.isError && <ErrorBanner message={failureMessage(sessions.error)} />}
+            {attachMutation.isError && <ErrorBanner message={errorMessage(attachMutation.error, "Session not found.")} />}
 
             <h2>Poista plan</h2>
             <p>Sessiot säilyvät lokissa.</p>
@@ -212,7 +217,7 @@ function PlanDetailPage() {
                     <button type="button" onClick={() => setConfirmDelete(false)} disabled={busy}>Peruuta</button>
                 </div>
             )}
-            {deleteMutation.isError && <p>{errorMessage(deleteMutation.error, "Plan not found.")}</p>}
+            {deleteMutation.isError && <ErrorBanner message={errorMessage(deleteMutation.error, "Plan not found.")} />}
         </div>
     );
 }
