@@ -1,5 +1,5 @@
 import {Routes, Route} from "react-router-dom";
-import HomePage from "./pages/HomePage.tsx";
+import DashboardPage from "./pages/DashboardPage.tsx";
 import './App.css'
 import RegisterPage from "./pages/RegisterPage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
@@ -15,7 +15,7 @@ function App() {
   return (
     <Routes>
       <Route element={<ProtectedRoute />}>
-              <Route path="/" element={<HomePage />} />
+              <Route path="/" element={<DashboardPage />} />
               <Route path="/sessions" element={<SessionsPage />} />
               <Route path="/sessions/new" element={<SessionFormPage />} />
               <Route path="/sessions/:sessionId" element={<SessionFormPage />} />
