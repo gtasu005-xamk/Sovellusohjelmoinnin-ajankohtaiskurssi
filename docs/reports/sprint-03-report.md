@@ -250,15 +250,15 @@ Skip stretch tickets you did not do.
 
 ### S3-22 — IDOR demo documentation (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S3-22: IDOR demo documentation
 - **Demonstration:**
   1. **Do this:** Open your IDOR write-up; confirm two-account steps for session/plan/goal/calendar.
   2. **Capture:** Doc snippet or `/docs` failure screenshot referenced by the write-up.
   3. **Must show:** Documented 404 vs 403 choice.
   4. **Save as:** `docs/reports/images/sprint-03/s3-22-idor.png`
-  5. **Caption:**
-- **Used AI?** Yes / No
+  5. **Caption:** IDOR dokumentaatiota.
+- **Used AI?** Yes 
 
 ### S3-23 — Optional Goals UI (Stretch)
 
