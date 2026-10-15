@@ -262,11 +262,11 @@ Skip stretch tickets you did not do.
 
 ### S3-23 — Optional Goals UI (Stretch)
 
-- **Status:** Done / deferred (why):
-- **PR / commit:**
+- **Status:** Done 
+- **PR / commit:** S3-23: Optional Goals UI
 - **Demonstrations:**
 - Screenshot of the optional Goals UI
-- **Used AI?** Yes / No
+- **Used AI?** Yes
 
 ### Stretch (if done)
 

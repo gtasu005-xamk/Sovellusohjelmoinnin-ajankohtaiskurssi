@@ -9,6 +9,7 @@ import SessionFormPage from "./pages/SessionFormPage.tsx";
 import PlansPage from "./pages/PlansPage.tsx";
 import PlanDetailPage from "./pages/PlanDetailPage.tsx";
 import CalendarPage from "./pages/CalendarPage.tsx";
+import GoalsPage from "./pages/GoalsPage.tsx";
 
 function App() {
   
@@ -22,6 +23,7 @@ function App() {
               <Route path="/plans" element={<PlansPage />} />
               <Route path="/plans/:planId" element={<PlanDetailPage />} />
               <Route path="/calendar" element={<CalendarPage />} />
+              <Route path="/goals" element={<GoalsPage />} />
 
       </Route>
       

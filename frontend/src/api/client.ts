@@ -256,3 +256,34 @@ export function detachSession(planId: number, sessionId: number): Promise<PlanDe
     return apiFetch<PlanDetail>(`/plans/${planId}/sessions/${sessionId}`, "DELETE");
 }
 
+
+export type Goal = {
+    id: number;
+    unit_type_id: number;
+    activity_type_id: number | null;
+    target_value: number;
+    period: string;
+    active: boolean;
+}
+
+export type GoalWrite = {
+    unit_type_id: number;
+    activity_type_id: number | null;
+    target_value: number;
+    period: string;
+}
+
+export function listGoals(active?: boolean): Promise<Goal[]> {
+    if (active === undefined) {
+        return apiFetch<Goal[]>("/goals");
+    }
+    return apiFetch<Goal[]>(`/goals?active=${active}`);
+}
+
+export function createGoal(body: GoalWrite): Promise<Goal> {
+    return apiFetch<Goal>("/goals", "POST", body);
+}
+
+export function setGoalActive(id: number, active: boolean): Promise<Goal> {
+    return apiFetch<Goal>(`/goals/${id}`, "PATCH", {active: active});
+}

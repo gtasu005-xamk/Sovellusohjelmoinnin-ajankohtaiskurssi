@@ -14,6 +14,7 @@ function Header({displayName, email, onLogout}: HeaderSpecs) {
             <Link to="/sessions">Sessiot</Link>
             <Link to="/plans">Planit</Link>
             <Link to="/calendar">Kalenteri</Link>
+            <Link to="/goals">Tavoitteet</Link>
             <span>{displayName} ({email})</span>
             <button type="button" 
                     onClick={onLogout}>
