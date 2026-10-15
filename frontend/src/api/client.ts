@@ -113,6 +113,7 @@ export type ActivityType = {
     name: string;
     slug: string;
     unit_links: UnitLink[];
+    is_system: boolean;
 }
 
 export type SessionWrite = {
@@ -187,3 +188,4 @@ export function cloneSession(id: number, body: {name: string; session_at: string
 export function deleteSession(id: number): Promise<void> {
     return apiFetch<void>(`/sessions/${id}`, "DELETE");
 }
+

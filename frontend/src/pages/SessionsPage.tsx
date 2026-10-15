@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
 import {listActivityTypes, listPlans, listSessions} from "../api/client.ts";
 import {queryKeys, type SessionFilters} from "../api/queryKeys.ts";
+import ActivityTypeSelect from "../components/ActivityTypeSelect.tsx";
 import {exerciseSummary, formatSessionDate} from "../sessions/display.ts";
 
 type Draft = {
@@ -124,13 +125,14 @@ function SessionsPage() {
 
 
                 <label>
-                    Aktiviteetti <select value={draft.activityTypeId}
-                        onChange={(e) => setDraft({...draft, activityTypeId: e.target.value})}>
-                            <option value="">Kaikki</option>
-                            {activityTypes.data?.map((activity) => (
-                            <option key={activity.id} value={activity.id}>{activity.name}</option>
-                    ))}
-                    </select>
+                    Aktiviteetti
+                    <ActivityTypeSelect
+                        activities={activityTypes.data ?? []}
+                        value={draft.activityTypeId ? Number(draft.activityTypeId) : null}
+                        onChange={(id) => setDraft({...draft, activityTypeId: id === null ? "" : String(id)})}
+                        allowEmpty
+                        emptyLabel="Kaikki"
+                    />
                     </label>
                 <button type="submit">Käytä</button>
                 <button type="button" onClick={handleClear}>Tyhjennä</button>

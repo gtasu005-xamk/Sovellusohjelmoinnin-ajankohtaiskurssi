@@ -7,6 +7,7 @@ import {queryKeys} from "../api/queryKeys.ts";
 import {draftFromSession, emptyDraft, emptyMeasurements, newItem, toSessionWrite,
         type ItemDraft, type SessionDraft} from "../sessions/draft.ts";
 import MeasurementEditor from "../components/MeasurementEditor.tsx";
+import ActivityTypeSelect from "../components/ActivityTypeSelect.tsx";
 
 type SessionFormProps = {
     sessionId: number | null;
@@ -30,7 +31,7 @@ function SessionForm({sessionId, initialDraft, activityTypes, plans}: SessionFor
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const [draft, setDraft] = useState<SessionDraft>(initialDraft);
-    const [newActivityId, setNewActivityId] = useState("");
+    const [newActivityId, setNewActivityId] = useState<number | null>(null);
     const [formError, setFormError] = useState<string | null>(null);
     const [saved, setSaved] = useState(false);
 
@@ -64,14 +65,18 @@ function SessionForm({sessionId, initialDraft, activityTypes, plans}: SessionFor
     }
 
     function addItem() {
-        const activity = findActivity(Number(newActivityId));
-        if (!activity) {
-            return;
-        }
-        setDraft({...draft, items: [...draft.items, newItem(activity)]});
-        setNewActivityId("");
-        setSaved(false);
+    if (newActivityId === null) {
+        return;
     }
+    const activity = findActivity(newActivityId);
+    if (!activity) {
+        return;
+    }
+    setDraft({...draft, items: [...draft.items, newItem(activity)]});
+    setNewActivityId(null);
+    setSaved(false);
+}
+
 
     function removeItem(index: number) {
         setDraft({...draft, items: draft.items.filter((_, i) => i !== index)});
@@ -182,14 +187,15 @@ function SessionForm({sessionId, initialDraft, activityTypes, plans}: SessionFor
                 const activity = findActivity(item.activityTypeId);
                 return (
                     <fieldset key={item.key}>
-                        <select
+                        <ActivityTypeSelect
+                            activities={activityTypes}
                             value={item.activityTypeId}
-                            onChange={(e) => changeActivity(index, Number(e.target.value))}
-                        >
-                            {activityTypes.map((a) => (
-                                <option key={a.id} value={a.id}>{a.name}</option>
-                            ))}
-                        </select>
+                            onChange={(id) => {
+                                if (id !== null) {
+                                    changeActivity(index, id);
+                                }
+                            }}
+                        />
                         <button type="button" onClick={() => moveItem(index, -1)} disabled={index === 0}>Ylös</button>
                         <button type="button" onClick={() => moveItem(index, 1)}
                                 disabled={index === draft.items.length - 1}>Alas</button>
@@ -215,13 +221,14 @@ function SessionForm({sessionId, initialDraft, activityTypes, plans}: SessionFor
             })}
 
             <div>
-                <select value={newActivityId} onChange={(e) => setNewActivityId(e.target.value)}>
-                    <option value="">Valitse harjoitus</option>
-                    {activityTypes.map((a) => (
-                        <option key={a.id} value={a.id}>{a.name}</option>
-                    ))}
-                </select>
-                <button type="button" onClick={addItem} disabled={newActivityId === ""}>Lisää harjoitus</button>
+                <ActivityTypeSelect
+                    activities={activityTypes}
+                    value={newActivityId}
+                    onChange={setNewActivityId}
+                    allowEmpty
+                    emptyLabel="Valitse harjoitus"
+                />
+                <button type="button" onClick={addItem} disabled={newActivityId === null}>Lisää harjoitus</button>
             </div>
 
             {formError && <p>{formError}</p>}

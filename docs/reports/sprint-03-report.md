@@ -196,9 +196,9 @@ Skip stretch tickets you did not do.
 
 ### S3-17 — Activity type selector (Must)
 
-- **Status:** Done / deferred (why):
-- **PR / commit:**
-- **Used AI?** Yes / No
+- **Status:** Done
+- **PR / commit:** S3-17: Activity type selector
+- **Used AI?** Yes 
 
 ### S3-18 — Plans UI (Must)
 
