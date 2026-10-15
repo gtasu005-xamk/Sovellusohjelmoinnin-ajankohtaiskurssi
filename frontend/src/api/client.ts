@@ -94,6 +94,20 @@ export type Session = {
 export type Plan = {
     id: number;
     name: string;
+    notes: string | null;
+    start_date: string | null;
+    length_weeks: number | null;
+}
+
+export type PlanDetail = Plan & {
+    sessions: Session[];
+}
+
+export type PlanWrite = {
+    name: string;
+    notes: string | null;
+    start_date: string | null;
+    length_weeks: number | null;
 }
 
 export type UnitLink = {
@@ -187,5 +201,29 @@ export function cloneSession(id: number, body: {name: string; session_at: string
 
 export function deleteSession(id: number): Promise<void> {
     return apiFetch<void>(`/sessions/${id}`, "DELETE");
+}
+
+export function getPlan(id: number): Promise<PlanDetail> {
+    return apiFetch<PlanDetail>(`/plans/${id}`);
+}
+
+export function createPlan(body: PlanWrite): Promise<Plan> {
+    return apiFetch<Plan>("/plans", "POST", body);
+}
+
+export function updatePlan(id: number, body: PlanWrite): Promise<Plan> {
+    return apiFetch<Plan>(`/plans/${id}`, "PATCH", body);
+}
+
+export function deletePlan(id: number): Promise<void> {
+    return apiFetch<void>(`/plans/${id}`, "DELETE");
+}
+
+export function attachSession(planId: number, sessionId: number): Promise<PlanDetail> {
+    return apiFetch<PlanDetail>(`/plans/${planId}/sessions/${sessionId}`, "POST");
+}
+
+export function detachSession(planId: number, sessionId: number): Promise<PlanDetail> {
+    return apiFetch<PlanDetail>(`/plans/${planId}/sessions/${sessionId}`, "DELETE");
 }
 
