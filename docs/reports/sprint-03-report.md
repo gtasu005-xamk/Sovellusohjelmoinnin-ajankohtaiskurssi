@@ -288,8 +288,8 @@ Skip stretch tickets you did not do.
 
 - **Status:** Done 
 - **PR / commit:** S3-S3: SQLAdmin
-- **Demonstrations:**
-- **Used AI?** Yes / No
+- **Demonstrations:** s3-s3-sqladmin.png
+- **Used AI?**  No
 
 ### S3-S4: Adherence preview
 

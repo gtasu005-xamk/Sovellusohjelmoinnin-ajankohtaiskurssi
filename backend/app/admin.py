@@ -4,7 +4,8 @@ from starlette.requests import Request
 
 from app.core.config import settings
 from app.db.session import engine
-from app.models import User, ActivityType, UnitType, ActivityTypeUnitType, Goal, WorkoutPlan
+from app.models import (User, ActivityType, UnitType, ActivityTypeUnitType, Goal, WorkoutPlan,
+                        WorkoutSession, WorkoutSessionItem, WorkoutSessionMeasurement)
 
 class AdminAuth(AuthenticationBackend):
 
@@ -93,6 +94,35 @@ class WorkoutPlanAdmin(ModelView, model=WorkoutPlan):
     column_searchable_list = [WorkoutPlan.name]
     column_sortable_list = [WorkoutPlan.id, WorkoutPlan.name, WorkoutPlan.start_date]
 
+
+class WorkoutSessionAdmin(ModelView, model=WorkoutSession):
+    name = "Workout session"
+    name_plural = "Workout sessions"
+    column_list = [WorkoutSession.id, WorkoutSession.user_id, WorkoutSession.name, WorkoutSession.session_at,
+                   WorkoutSession.status, WorkoutSession.plan_id, WorkoutSession.source_session_id]
+    column_searchable_list = [WorkoutSession.name]
+    column_sortable_list = [WorkoutSession.id, WorkoutSession.user_id, WorkoutSession.session_at,
+                            WorkoutSession.status]
+
+
+class WorkoutSessionItemAdmin(ModelView, model=WorkoutSessionItem):
+    name = "Session item"
+    name_plural = "Session items"
+    column_list = [WorkoutSessionItem.id, WorkoutSessionItem.session_id, WorkoutSessionItem.activity_type,
+                   WorkoutSessionItem.sort_order, WorkoutSessionItem.notes]
+    column_sortable_list = [WorkoutSessionItem.id, WorkoutSessionItem.session_id, WorkoutSessionItem.sort_order]
+
+
+class WorkoutSessionMeasurementAdmin(ModelView, model=WorkoutSessionMeasurement):
+    name = "Session measurement"
+    name_plural = "Session measurements"
+    column_list = [WorkoutSessionMeasurement.id, WorkoutSessionMeasurement.session_item_id,
+                   WorkoutSessionMeasurement.unit_type, WorkoutSessionMeasurement.set_index,
+                   WorkoutSessionMeasurement.planned_value, WorkoutSessionMeasurement.actual_value]
+    column_sortable_list = [WorkoutSessionMeasurement.id, WorkoutSessionMeasurement.session_item_id,
+                            WorkoutSessionMeasurement.set_index]
+
+
 def create_admin(app) -> Admin:
     admin = Admin(
         app,
@@ -105,4 +135,7 @@ def create_admin(app) -> Admin:
     admin.add_view(ActivityTypeUnitTypeAdmin)
     admin.add_view(GoalAdmin)
     admin.add_view(WorkoutPlanAdmin)
+    admin.add_view(WorkoutSessionAdmin)
+    admin.add_view(WorkoutSessionItemAdmin)
+    admin.add_view(WorkoutSessionMeasurementAdmin)
     return admin
