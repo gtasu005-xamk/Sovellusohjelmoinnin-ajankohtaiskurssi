@@ -291,22 +291,24 @@ Skip stretch tickets you did not do.
 - **Demonstrations:** s3-s3-sqladmin.png
 - **Used AI?**  No
 
-### S3-S4: Adherence preview
+### S3-S4 - Adherence preview
 
 - **Status:** Done 
-- **PR / commit:** S3-23: Optional Goals UI
-- **Demonstrations:**
-- **Used AI?** Yes / No
+- **PR / commit:** S3-S4: Adherence preview
+- **Used AI?** Yes
 
 For each completed stretch: Status, PR/commit, Used AI? Add a short Demonstration if you have a useful screenshot (`s3-sN-….png`).
 
 ## Design notes
 
-Two to four technical choices (e.g. 404 vs 403; how clone sets `plan_id`; calendar empty days).
+- **404 eikä 403:** Toisen käyttäjän sessio, plan tai tavoite palauttaa 404, kuten olematon ID. Näin ei paljastu, mitkä ID:t ovat olemassa.
+- **Clone:** Kloonaus tekee uuden kopion. Planned-arvot säilyvät, actual-arvot tyhjennetään eikä `plan_id`:tä kopioida. Lähteen muokkaus ei muuta kloonia.
+- **Plan:** Sessio liitetään planiin `plan_id`-kentällä, eikä erillistä liitostaulua ole.
+- **Kalenteri:** Kalenteri näyttää vain sessiot, joilla on päivämäärä. Tyhjiä päiviä ei luoda.
 
 ## Retrospective
 
-What went well / what to change next sprint (Sprint 4 charts).
+**Mikä meni hyvin:** Backendin kerrosrakenne teki uusien reittien lisäämisestä helppoa. TanStack Query piti listat ajan tasalla. Omistajuustestit varmistavat, ettei toisen käyttäjän data näy.
 
 ## Carry-over
 
@@ -320,11 +322,11 @@ Here, cover your **overall** AI use during this sprint (Cursor, ChatGPT, Copilot
 
 If you marked **No** on every ticket, write a short note that you did not use AI coding assistants this sprint (you may still answer verification / independence questions briefly).
 
-- **Where AI helped most this sprint** (themes, ticket IDs, or areas—not a ticket-by-ticket dump):
-- **What I typically accepted from AI suggestions:**
-- **What I typically rejected or reworked, and why:**
-- **How I verified AI-assisted work** (tests, `/docs`, manual demos, reviews):
-- **What I can now explain or do independently** that I relied on AI for earlier:
-- **Anything I would do differently with AI next sprint:**
+- **Where AI helped most this sprint**: Käytin Claude Codea sprintin ajan. Eniten se auttoi backendin reiteissä ja frontend-sivujen rungon luomisessa. Lisäksi se auttoi virheiden selvittämisessä, esimerkiksi Alembicin, Dockerin ja `.env`-tiedoston ongelmissa.
+- **What I typically accepted from AI suggestions:** Hyväksyin tyypillisesti selkeät rakenteellisen outlinen, mutta en hyväksynyt ylimonimutkaistettuja ratkaisuja.
+- **What I typically rejected or reworked, and why:** Hylkäsin liian monimutkaiset ratkaisut joita en itse ymmärtänyt. Frontin ja backin puolella muokkasin tarpeentullen nimeämiskäytäntöjä sprint ohjeistuksen mukaisesti
+- **How I verified AI-assisted work**: Testasin manuaalisesti joko swaggerissa tai frontissa toiminnot, sekä hyödynsin Clauden tuottamia .pytestejä.
+- **What I can now explain or do independently** that I relied on AI for earlier: Ymmärrän, miten reitti, palvelu ja repository jakavat työn, ja miksi toisen käyttäjän data palauttaa 404. Osaan myös käyttää TanStack Queryn `useQuery`a ja `useMutation`ia.
+- **Anything I would do differently with AI next sprint:** Kirjoitan enemmän koodia itse ja käytän AI:ta debuggaamaan ja korjaamaan.
 
 Do not paste secrets, full JWTs, or `.env` values.

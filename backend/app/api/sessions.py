@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from app.core.deps import get_current_user
 from app.db.session import get_db
 from app.models.user import User
-from app.schemas.session import SessionClone, SessionCreate, SessionOut, SessionPage, SessionStatus, SessionUpdate
+from app.schemas.session import AdherenceSummary, SessionClone, SessionCreate, SessionOut, SessionPage, SessionStatus, SessionUpdate
 from app.services import sessions as session_service
 from app.services.sessions import (InvalidMeasurementError, InvalidRangeError, PlanNotFoundError, SessionNotFoundError,)
 
@@ -47,6 +47,20 @@ def list_sessions(
             page=page,
             limit=limit,
         )
+    except InvalidRangeError:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="'from' must be before 'to'")
+
+
+@router.get("/adherence", response_model=AdherenceSummary)
+def get_adherence(
+    from_date: datetime = Query(alias="from"),
+    to_date: datetime = Query(alias="to"),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Planned vs actual -esikatselu Sprint 4:ää varten. Vertaa vain mittauksia, joissa on molemmat arvot, ryhmiteltynä yksikön mukaan."""
+    try:
+        return session_service.get_adherence(db, current_user, from_date, to_date)
     except InvalidRangeError:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="'from' must be before 'to'")
 

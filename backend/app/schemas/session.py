@@ -101,3 +101,17 @@ class SessionPage(BaseModel):
     total: int
     page: int
     limit: int | None
+
+
+class UnitAdherence(BaseModel):
+    unit_type_id: int
+    compared: int
+    planned_total: float
+    actual_total: float
+    hit_count: int
+
+
+class AdherenceSummary(BaseModel):
+    compared: int
+    hit_count: int
+    units: list[UnitAdherence]

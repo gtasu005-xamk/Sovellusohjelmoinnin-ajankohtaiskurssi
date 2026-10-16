@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
 from sqlalchemy.orm import Session
 
@@ -10,6 +10,7 @@ from app.repositories import activity_type as activity_type_repo
 from app.repositories import plan as plan_repo
 from app.repositories import session as session_repo
 from app.schemas.session import ItemIn, SessionClone, SessionCreate, SessionUpdate
+from app.services.adherence import MeasurementRow, summarize
 
 
 class SessionNotFoundError(Exception):
@@ -94,6 +95,27 @@ def list_sessions(
         limit=limit,
     )
     return {"items": items, "total": total, "page": page, "limit": limit}
+
+
+def get_adherence(db: Session, user: User, from_date: datetime, to_date: datetime) -> dict:
+    if from_date.tzinfo is None:
+        from_date = from_date.replace(tzinfo=timezone.utc)
+    if to_date.tzinfo is None:
+        to_date = to_date.replace(tzinfo=timezone.utc)
+    if from_date > to_date:
+        raise InvalidRangeError()
+
+    rows = []
+    for measurement, session_at in session_repo.list_measurements_for_user(db, user.id, from_date, to_date):
+        if session_at.tzinfo is None:
+            session_at = session_at.replace(tzinfo=timezone.utc)
+        rows.append(MeasurementRow(
+            unit_type_id=measurement.unit_type_id,
+            planned=measurement.planned_value,
+            actual=measurement.actual_value,
+            session_at=session_at,
+        ))
+    return summarize(rows, from_date, to_date)
 
 
 # Toisen käyttäjän sessio näyttää samalta kuin olematon: 404.

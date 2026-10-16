@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 
 from app.models.workout_session import WorkoutSession
 from app.models.workout_session_item import WorkoutSessionItem
+from app.models.workout_session_measurement import WorkoutSessionMeasurement
 
 
 def list_by_user(
@@ -59,6 +60,21 @@ def list_for_calendar(
     if plan_id is not None:
         query = query.filter(WorkoutSession.plan_id == plan_id)
     return query.order_by(WorkoutSession.session_at, WorkoutSession.id).all()
+
+
+def list_measurements_for_user(db: Session, user_id: int, from_date: datetime, to_date: datetime) -> list:
+    return (
+        db.query(WorkoutSessionMeasurement, WorkoutSession.session_at)
+        .join(WorkoutSessionItem, WorkoutSessionMeasurement.session_item_id == WorkoutSessionItem.id)
+        .join(WorkoutSession, WorkoutSessionItem.session_id == WorkoutSession.id)
+        .filter(
+            WorkoutSession.user_id == user_id,
+            WorkoutSession.session_at.is_not(None),
+            WorkoutSession.session_at >= from_date,
+            WorkoutSession.session_at <= to_date,
+        )
+        .all()
+    )
 
 
 def get_for_user(db: Session, session_id: int, user_id: int) -> WorkoutSession | None:
