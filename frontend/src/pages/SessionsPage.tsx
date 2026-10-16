@@ -53,7 +53,7 @@ function toFilters(draft: Draft): SessionFilters {
 
 function SessionsPage() {
     const [draft, setDraft] = useState<Draft>(emptyDraft);
-    const [applied, setApplied] = useState<SessionFilters>({});
+    const [applied, setApplied] = useState<SessionFilters>({page: 1, limit: 20});
     const [formError, setFormError] = useState<string | null>(null);
 
     const sessions = useQuery({
@@ -72,16 +72,40 @@ function SessionsPage() {
             return;
         }
         setFormError(null);
-        setApplied(toFilters(draft));
+        setApplied({...toFilters(draft), page: 1, limit: applied.limit});
     }
 
     function handleClear() {
         setDraft(emptyDraft);
-        setApplied({});
+        setApplied({page: 1, limit: applied.limit});
         setFormError(null)}
 
+    function changePage(page: number) {
+        setApplied({...applied, page: page});
+    }
+
+    function changeLimit(limit: number) {
+        setApplied({...applied, page: 1, limit: limit});
+    }
+
     const unscheduled = draft.schedule === "unscheduled";
-    const hasFilters = Object.keys(applied).length > 0;
+    let hasFilters = false;
+    for (const key of Object.keys(applied)) {
+        if (key !== "page" && key !== "limit") {
+            hasFilters = true;
+        }
+    }
+
+    const items = sessions.data?.items ?? [];
+    const total = sessions.data?.total ?? 0;
+    const page = applied.page ?? 1;
+    const limit = applied.limit ?? 20;
+    const pageCount = Math.max(1, Math.ceil(total / limit));
+    let firstRow = 0;
+    if (total > 0) {
+        firstRow = (page - 1) * limit + 1;
+    }
+    const lastRow = Math.min(page * limit, total);
 
     return (
         <div>
@@ -144,10 +168,10 @@ function SessionsPage() {
             {sessions.isLoading && <p>Ladataan</p>}
             {sessions.isError && <ErrorBanner message={failureMessage(sessions.error)} />}
 
-            {sessions.data && sessions.data.length === 0 && hasFilters && (
+            {sessions.data && items.length === 0 && hasFilters && (
                 <EmptyState title="Mikään sessio ei vastaa suodattimia." text="Kokeile muuttaa tai tyhjentää suodattimet." />
             )}
-            {sessions.data && sessions.data.length === 0 && !hasFilters && (
+            {sessions.data && items.length === 0 && !hasFilters && (
                 <EmptyState
                     title="Ei vielä sessioita."
                     linkTo="/sessions/new"
@@ -155,7 +179,7 @@ function SessionsPage() {
                 />
             )}
 
-            {sessions.data && sessions.data.length > 0 && (
+            {sessions.data && items.length > 0 && (
                 <table>
                     <thead>
                         <tr>
@@ -166,7 +190,7 @@ function SessionsPage() {
                         </tr>
                     </thead>
                     <tbody>
-                        {sessions.data.map((session) => (
+                        {items.map((session) => (
                             <tr key={session.id}>
                                 <td><Link to={`/sessions/${session.id}`}>{session.name}</Link></td>
                                 <td>{formatSessionDate(session.session_at)}</td>
@@ -177,6 +201,20 @@ function SessionsPage() {
                     </tbody>
                 </table>
             )}
+
+            <div>
+                <label>
+                    Sivun koko
+                    <select value={limit} onChange={(e) => changeLimit(Number(e.target.value))}>
+                        <option value={10}>10</option>
+                        <option value={20}>20</option>
+                        <option value={50}>50</option>
+                    </select>
+                </label>
+                <button type="button" onClick={() => changePage(page - 1)} disabled={page <= 1}>Edellinen</button>
+                <span> Page {page} of {pageCount} ({firstRow}-{lastRow} of {total}) </span>
+                <button type="button" onClick={() => changePage(page + 1)} disabled={page >= pageCount}>Seuraava</button>
+            </div>
         </div>
     );
 }

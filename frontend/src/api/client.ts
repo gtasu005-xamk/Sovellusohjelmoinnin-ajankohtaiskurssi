@@ -161,7 +161,14 @@ export type SessionWrite = {
 }
 
 
-export function listSessions(filters: SessionFilters): Promise<Session[]> {
+export type SessionPage = {
+    items: Session[];
+    total: number;
+    page: number;
+    limit: number | null;
+}
+
+export function listSessions(filters: SessionFilters): Promise<SessionPage> {
     const params = new URLSearchParams();
     if (filters.from) {
         params.set("from", new Date(`${filters.from}T00:00:00`).toISOString());
@@ -181,8 +188,14 @@ export function listSessions(filters: SessionFilters): Promise<Session[]> {
     if (filters.planId !== undefined) {
         params.set("plan_id", String(filters.planId));
     }
+    if (filters.page !== undefined) {
+        params.set("page", String(filters.page));
+    }
+    if (filters.limit !== undefined) {
+        params.set("limit", String(filters.limit));
+    }
     const query = params.toString();
-    return apiFetch<Session[]>(query ? `/sessions?${query}` : "/sessions");
+    return apiFetch<SessionPage>(query ? `/sessions?${query}` : "/sessions");
 }
 
 export function listPlans(): Promise<Plan[]> {

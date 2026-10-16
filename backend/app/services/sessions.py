@@ -72,11 +72,16 @@ def list_sessions(
     activity_type_id: int | None = None,
     unscheduled: bool | None = None,
     plan_id: int | None = None,
-) -> list[WorkoutSession]:
+    page: int = 1,
+    limit: int | None = None,
+) -> dict:
     if from_date is not None and to_date is not None and from_date > to_date:
         raise InvalidRangeError()
 
-    return session_repo.list_by_user(
+    if limit is None:
+        page = 1
+
+    items, total = session_repo.list_by_user(
         db,
         user.id,
         from_date=from_date,
@@ -85,7 +90,10 @@ def list_sessions(
         activity_type_id=activity_type_id,
         unscheduled=unscheduled,
         plan_id=plan_id,
+        page=page,
+        limit=limit,
     )
+    return {"items": items, "total": total, "page": page, "limit": limit}
 
 
 # Toisen käyttäjän sessio näyttää samalta kuin olematon: 404.

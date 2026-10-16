@@ -16,7 +16,9 @@ def list_by_user(
     activity_type_id: int | None = None,
     unscheduled: bool | None = None,
     plan_id: int | None = None,
-) -> list[WorkoutSession]:
+    page: int = 1,
+    limit: int | None = None,
+) -> tuple[list[WorkoutSession], int]:
     query = db.query(WorkoutSession).filter(WorkoutSession.user_id == user_id)
 
     if from_date is not None:
@@ -34,7 +36,11 @@ def list_by_user(
     if plan_id is not None:
         query = query.filter(WorkoutSession.plan_id == plan_id)
 
-    return query.order_by(WorkoutSession.session_at.desc().nulls_last(), WorkoutSession.id.desc()).all()
+    total = query.count()
+    query = query.order_by(WorkoutSession.session_at.desc().nulls_last(), WorkoutSession.id.desc())
+    if limit is not None:
+        query = query.offset((page - 1) * limit).limit(limit)
+    return query.all(), total
 
 
 def list_for_calendar(

@@ -94,3 +94,10 @@ class SessionOut(BaseModel):
     created_at: datetime
     updated_at: datetime
     items: list[ItemOut]
+
+
+class SessionPage(BaseModel):
+    items: list[SessionOut]
+    total: int
+    page: int
+    limit: int | None

@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from app.core.deps import get_current_user
 from app.db.session import get_db
 from app.models.user import User
-from app.schemas.session import SessionClone, SessionCreate, SessionOut, SessionStatus, SessionUpdate
+from app.schemas.session import SessionClone, SessionCreate, SessionOut, SessionPage, SessionStatus, SessionUpdate
 from app.services import sessions as session_service
 from app.services.sessions import (InvalidMeasurementError, InvalidRangeError, PlanNotFoundError, SessionNotFoundError,)
 
@@ -21,7 +21,7 @@ def _invalid(error: Exception) -> HTTPException:
     return HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(error))
 
 
-@router.get("", response_model=list[SessionOut])
+@router.get("", response_model=SessionPage)
 def list_sessions(
     from_date: datetime | None = Query(None, alias="from"),
     to_date: datetime | None = Query(None, alias="to"),
@@ -29,6 +29,8 @@ def list_sessions(
     activity_type_id: int | None = None,
     unscheduled: bool | None = None,
     plan_id: int | None = None,
+    page: int = Query(1, ge=1),
+    limit: int | None = Query(None, ge=1, le=100),
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
@@ -42,6 +44,8 @@ def list_sessions(
             activity_type_id=activity_type_id,
             unscheduled=unscheduled,
             plan_id=plan_id,
+            page=page,
+            limit=limit,
         )
     except InvalidRangeError:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="'from' must be before 'to'")

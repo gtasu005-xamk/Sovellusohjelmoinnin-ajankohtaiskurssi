@@ -270,7 +270,33 @@ Skip stretch tickets you did not do.
 
 ### Stretch (if done)
 
-#### S3-S1 — Pagination · S3-S2 — Ownership API tests · S3-S3 — SQLAdmin · S3-S4 — Adherence preview
+### S3-S1 — Pagination
+
+- **Status:** Done 
+- **PR / commit:** S3-S1: Pagination
+- **Demonstrations:** s3-s1-pagination.png`
+- **Used AI?** No
+
+### S3-S2 — Ownership API tests
+
+- **Status:** Done 
+- **PR / commit:** S3-S2: Ownership API tests
+- **Demonstrations:**
+- **Used AI?** Yes / No
+
+### S3-S3 — SQLAdmin
+
+- **Status:** Done 
+- **PR / commit:** S3-S3: SQLAdmin
+- **Demonstrations:**
+- **Used AI?** Yes / No
+
+### S3-S4: Adherence preview
+
+- **Status:** Done 
+- **PR / commit:** S3-23: Optional Goals UI
+- **Demonstrations:**
+- **Used AI?** Yes / No
 
 For each completed stretch: Status, PR/commit, Used AI? Add a short Demonstration if you have a useful screenshot (`s3-sN-….png`).
 

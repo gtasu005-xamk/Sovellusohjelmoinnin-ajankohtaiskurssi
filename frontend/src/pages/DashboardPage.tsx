@@ -20,7 +20,7 @@ function DashboardPage() {
         return <ErrorBanner message={failureMessage(sessions.error)} />;
     }
 
-    const recent = [...(sessions.data ?? [])];
+    const recent = [...(sessions.data?.items ?? [])];
     recent.sort((a, b) => new Date(b.session_at ?? 0).getTime() - new Date(a.session_at ?? 0).getTime());
     const latest = recent.slice(0, 8);
 

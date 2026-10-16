@@ -149,7 +149,7 @@ function PlanDetailPage() {
 
     const dated = plan.data.sessions.filter((s) => s.session_at !== null);
     const unscheduled = plan.data.sessions.filter((s) => s.session_at === null);
-    const attachable = (sessions.data ?? []).filter((s) => s.plan_id !== id);
+    const attachable = (sessions.data?.items ?? []).filter((s) => s.plan_id !== id);
     const busy = attachMutation.isPending || detachMutation.isPending || deleteMutation.isPending;
 
     function handleAttach(event: FormEvent<HTMLFormElement>) {
