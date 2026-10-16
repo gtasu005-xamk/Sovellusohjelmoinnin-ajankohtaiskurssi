@@ -281,8 +281,8 @@ Skip stretch tickets you did not do.
 
 - **Status:** Done 
 - **PR / commit:** S3-S2: Ownership API tests
-- **Demonstrations:**
-- **Used AI?** Yes / No
+- **Demonstrations:** s3-s2-ownership-tests.png
+- **Used AI?** Yes 
 
 ### S3-S3 — SQLAdmin
 
