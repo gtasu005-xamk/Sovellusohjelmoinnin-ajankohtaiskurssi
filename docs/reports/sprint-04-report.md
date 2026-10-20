@@ -35,26 +35,26 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
 
 ### S4-02 — Summary metrics (Must)
 
-- **Status:**
-- **PR / commit:**
-- **Used AI?** Yes / No
+- **Status:** Done 
+- **PR / commit:** S4-02: Summary metrics
+- **Used AI?** No
 
 ### S4-03 — Progress time series (Must)
 
 - **Status:**
-- **PR / commit:**
+- **PR / commit:** S4-03: Progress time series
 - **Used AI?** Yes / No
 
 ### S4-04 — Streak metrics (Must)
 
 - **Status:**
-- **PR / commit:**
+- **PR / commit:** S4-04: Streak metrics
 - **Used AI?** Yes / No
 
 ### S4-05 — Analytics unit tests (Must)
 
 - **Status:**
-- **PR / commit:**
+- **PR / commit:** S4-05: Analytics unit tests
 - **Demonstration:**
   1. **Do this:** From the documented working directory, run `pytest` for the analytics unit tests (pure Python—no UI required).
   2. **Capture:** Terminal screenshot of the test run.
@@ -67,7 +67,7 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
 ### S4-06 — Stats summary endpoint (Must)
 
 - **Status:**
-- **PR / commit:**
+- **PR / commit:** S4-06: Stats summary endpoint
 - **Demonstration:**
   1. **Do this:** Authorize in `/docs`. Call `GET /stats/summary` for a **known** period where you already know expected totals from fixtures or seeded sessions.
   2. **Capture:** Screenshot of the `/docs` response JSON.
