@@ -72,3 +72,9 @@ Auth API -testit (register → login → /auth/me, SQLite-muistikanta, ei vaadi 
 cd backend
 .venv\Scripts\python -m pytest
 ```
+
+Analytiikan yksikkötestit (yhteenveto, aikasarjat, putket). Kutsuvat suoraan services/analytics.py:tä, ei tarvitse Postgresia eikä Dockeria:
+```
+cd backend
+.venv\Scripts\python -m pytest tests/test_analytics.py
+```

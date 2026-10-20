@@ -61,8 +61,8 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
   3. **Must show:** Analytics-related tests **passed** (summary / progress / streaks coverage as in your tickets).
   4. **Must not show:** Secrets in the environment dump.
   5. **Save as:** `docs/reports/images/sprint-04/s4-05-pytest.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** Onnistuneet analytiikan pytestit
+- **Used AI?** Yes
 
 ### S4-06 — Stats summary endpoint (Must)
 
