@@ -132,3 +132,49 @@ def build_series(sessions: list[SessionInput], metric: str, period: str, activit
     points = list(buckets.values())
     points.sort(key=lambda point: point["period_start"])
     return points
+
+
+def compute_streaks(sessions: list[SessionInput], today: date) -> dict:
+    ###Putki = peräkkäiset kalenteripäivät, joina on vähintään yksi sessio.
+
+    ###Päivä otetaan session_at:sta, ajastamattomat ja tulevaisuuden sessiot ei lasketa.
+    ###Nykyinen putki saa jatkua eiliseen asti: jos tänään ei vielä ole sessiota mutta
+    ###eilen on, putki ei katkea. Jos ei kumpaakaan, nykyinen putki on 0.
+    
+    days = set()
+    for session in sessions:
+        if session.session_at is None:
+            continue
+        day = session.session_at.date()
+        if day > today:
+            continue
+        days.add(day)
+
+    if len(days) == 0:
+        return {"current_days": 0, "longest_days": 0, "last_active_date": None}
+
+    sorted_days = sorted(days)
+
+    longest = 1
+    run = 1
+    for i in range(1, len(sorted_days)):
+        if sorted_days[i] - sorted_days[i - 1] == timedelta(days=1):
+            run += 1
+        else:
+            run = 1
+        if run > longest:
+            longest = run
+
+    current = 0
+    day = today
+    if day not in days:
+        day = today - timedelta(days=1)
+    while day in days:
+        current += 1
+        day = day - timedelta(days=1)
+
+    return {
+        "current_days": current,
+        "longest_days": longest,
+        "last_active_date": sorted_days[-1].isoformat(),
+    }
