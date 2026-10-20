@@ -8,7 +8,7 @@
 ## planned/actual voi olla None jos arvoa ei ole syötetty
 
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import date, datetime, timedelta
 
 @dataclass
 class MeasurementInput:
@@ -79,3 +79,56 @@ def summarize_sessions(sessions: list[SessionInput]) -> dict:
         "avg_intensity": avg_intensity,
         "by_activity": list(by_activity.values()),
     }
+
+
+## Aikasarja viikoittain tai kuukausittain. Viikko alkaa maanantaina (ISO-viikko).
+## Ajastamattomat sessiot jätetään pois. Mukana vain jaksot joilla on dataa.
+## metric: "sessions", "duration_min" tai "distance_km" (actual-arvoista).
+## activity_slug rajaa sarjan yhteen aktiviteettiin, None = kaikki.
+def build_series(sessions: list[SessionInput], metric: str, period: str, activity_slug: str | None = None) -> list[dict]:
+    if metric not in ["sessions", "duration_min", "distance_km"]:
+        raise ValueError("Unknown metric")
+    if period not in ["week", "month"]:
+        raise ValueError("Unknown period")
+
+    buckets = {}
+    for session in sessions:
+        if session.session_at is None:
+            continue
+
+        day = session.session_at.date()
+        if period == "week":
+            year, week, weekday = day.isocalendar()
+            start = day - timedelta(days=weekday - 1)
+            label = f"{year}-W{week:02d}"
+        else:
+            start = date(day.year, day.month, 1)
+            label = f"{day.year}-{day.month:02d}"
+
+
+
+        value = 0.0
+        if metric == "sessions":
+            if activity_slug is None:
+                value = 1
+            else:
+                for m in session.measurements:
+                    if m.activity_slug == activity_slug:
+                        value = 1
+        else:
+            for m in session.measurements:
+                if activity_slug is not None and m.activity_slug != activity_slug:
+                    continue
+                if m.unit_slug == metric and m.actual_value is not None:
+                    value += m.actual_value
+
+        if metric == "sessions" and value == 0:
+            continue
+
+        if label not in buckets:
+            buckets[label] = {"period_label": label, "period_start": start.isoformat(), "value": 0}
+        buckets[label]["value"] += value
+
+    points = list(buckets.values())
+    points.sort(key=lambda point: point["period_start"])
+    return points
