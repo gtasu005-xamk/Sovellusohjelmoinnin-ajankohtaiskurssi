@@ -4,7 +4,7 @@ Copy this file to `docs/reports/sprint-03.md` in **your** repo and fill the blan
 
 | Field        | Your answer |
 | ------------ | ----------- |
-| **Dates**    |             |
+| **Dates**    | 16.10.2026            |
 | **Names**    |  Tatu Suuripää           |
 | **Repo URL** |https://github.com/gtasu005-xamk/Sovellusohjelmoinnin-ajankohtaiskurssi                    |
 | **Branch**   |  Master           |
