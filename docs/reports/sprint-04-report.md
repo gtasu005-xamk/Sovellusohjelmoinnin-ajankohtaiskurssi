@@ -79,16 +79,16 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
 
 ### S4-07 — Stats progress endpoint (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done 
+- **PR / commit:** S4-07: Stats progress endpoint
 - **Demonstration:**
   1. **Do this:** In `/docs`, call `GET /stats/progress` with period/granularity params you support.
   2. **Capture:** Screenshot of the time-series (or bucketed) JSON response.
   3. **Must show:** Progress payload with series/points for the authenticated user.
   4. **Must not show:** Tokens.
   5. **Save as:** `docs/reports/images/sprint-04/s4-07-progress-api.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** /stats/progress palauttaa kirjautuneen käyttäjän sessiot ryhmiteltyinä.
+- **Used AI?** Yes
 
 ### S4-08 — Stats streaks endpoint (Must)
 

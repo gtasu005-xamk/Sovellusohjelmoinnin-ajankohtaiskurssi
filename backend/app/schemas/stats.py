@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Literal
 
 class ActivitySummary(BaseModel):
     activity_slug: str
@@ -13,3 +14,12 @@ class StatsSummary(BaseModel):
     total_distance_km: float
     avg_intensity: float | None
     by_activity: list[ActivitySummary]
+
+
+ProgressMetric = Literal["sessions", "duration_min", "distance_km"]
+Granularity = Literal["week", "month"]
+
+class ProgressPoint(BaseModel):
+    period_label: str
+    period_start: str
+    value: float
