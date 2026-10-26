@@ -10,6 +10,7 @@ from app.api.goals import router as goals_router
 from app.api.health import router as health_router
 from app.api.plans import router as plans_router
 from app.api.sessions import router as sessions_router
+from app.api.stats import router as stats_router
 from app.core.config import settings
 
 app = FastAPI()
@@ -26,6 +27,7 @@ app.include_router(plans_router)
 app.include_router(activity_types_router)
 app.include_router(goals_router)
 app.include_router(calendar_router)
+app.include_router(stats_router)
 create_admin(app)
 
 

@@ -66,7 +66,7 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
 
 ### S4-06 — Stats summary endpoint (Must)
 
-- **Status:**
+- **Status:** Done
 - **PR / commit:** S4-06: Stats summary endpoint
 - **Demonstration:**
   1. **Do this:** Authorize in `/docs`. Call `GET /stats/summary` for a **known** period where you already know expected totals from fixtures or seeded sessions.
@@ -74,8 +74,8 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
   3. **Must show:** Successful summary response for that period (counts/totals visible).
   4. **Must not show:** Full JWT; crop Authorize.
   5. **Save as:** `docs/reports/images/sprint-04/s4-06-summary.png`
-  6. **Caption (1–2 sentences):** (state the period and expected numbers briefly)
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** GET /stats/summary lokakuulle 2026: 10 sessiota, joista running 3, cycling 2 ja bench press 4. Kesto ja matka ovat 0, koska yhteenveto laskee vain actual-arvot ja sessioissa on vain planned-arvoja.
+- **Used AI?** No
 
 ### S4-07 — Stats progress endpoint (Must)
 
