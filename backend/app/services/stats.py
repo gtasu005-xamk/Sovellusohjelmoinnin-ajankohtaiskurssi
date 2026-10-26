@@ -1,10 +1,10 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from sqlalchemy.orm import Session
 
 from app.models.user import User
 from app.models.workout_session import WorkoutSession
 from app.repositories import session as session_repo
-from app.services.analytics import MeasurementInput, SessionInput, build_series, summarize_sessions
+from app.services.analytics import MeasurementInput, SessionInput, build_series, compute_streaks, summarize_sessions
 from app.services.sessions import InvalidRangeError
 from app.repositories import activity_type as activity_type_repo
 
@@ -58,3 +58,11 @@ def get_progress(db: Session, user: User, from_date: datetime, to_date: datetime
 
     sessions = load_sessions(db, user, from_date, to_date)
     return build_series(sessions, metric, granularity, activity_slug)
+
+
+def get_streaks(db: Session, user: User) -> dict:
+    sessions = []
+    for session in session_repo.list_dated_by_user(db, user.id):
+        sessions.append(to_session_input(session))
+    today = datetime.now(timezone.utc).date()
+    return compute_streaks(sessions, today)

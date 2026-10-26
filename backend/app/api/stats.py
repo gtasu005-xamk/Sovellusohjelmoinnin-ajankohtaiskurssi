@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from app.core.deps import get_current_user
 from app.db.session import get_db
 from app.models.user import User
-from app.schemas.stats import Granularity, ProgressMetric, ProgressPoint, StatsSummary
+from app.schemas.stats import Granularity, ProgressMetric, ProgressPoint, StatsSummary, StreakResponse
 from app.services import stats as stats_service
 from app.services.sessions import InvalidRangeError
 from app.services.stats import UnknownActivityTypeError
@@ -44,3 +44,11 @@ def get_progress(
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="'from' must be before 'to'")
     except UnknownActivityTypeError:
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Unknown activity_type_id")
+
+
+@router.get("/streaks", response_model=StreakResponse)
+def get_streaks(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    """Putket koko historiasta. Putki = peräkkäiset päivät (UTC) joina vähintään yksi sessio.
+    Ajastamattomat ja tulevat sessiot ei lasketa. Nykyinen putki jatkuu jos eilen oli sessio,
+    vaikka tänään ei vielä olisi."""
+    return stats_service.get_streaks(db, current_user)

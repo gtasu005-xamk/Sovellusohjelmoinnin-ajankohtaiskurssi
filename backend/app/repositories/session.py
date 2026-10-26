@@ -62,6 +62,15 @@ def list_for_calendar(
     return query.order_by(WorkoutSession.session_at, WorkoutSession.id).all()
 
 
+def list_dated_by_user(db: Session, user_id: int) -> list[WorkoutSession]:
+    return (
+        db.query(WorkoutSession)
+        .filter(WorkoutSession.user_id == user_id, WorkoutSession.session_at.is_not(None))
+        .order_by(WorkoutSession.session_at)
+        .all()
+    )
+
+
 def list_measurements_for_user(db: Session, user_id: int, from_date: datetime, to_date: datetime) -> list:
     return (
         db.query(WorkoutSessionMeasurement, WorkoutSession.session_at)

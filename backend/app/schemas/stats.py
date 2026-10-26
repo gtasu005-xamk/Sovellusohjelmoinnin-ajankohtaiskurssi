@@ -23,3 +23,9 @@ class ProgressPoint(BaseModel):
     period_label: str
     period_start: str
     value: float
+
+
+class StreakResponse(BaseModel):
+    current_days: int
+    longest_days: int
+    last_active_date: str | None
