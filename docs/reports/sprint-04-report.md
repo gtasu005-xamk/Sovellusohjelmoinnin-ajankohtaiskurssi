@@ -113,8 +113,8 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
   3. **Must show:** Aggregate IDOR prevented—User B’s data absent from User A’s stats.
   4. **Must not show:** Tokens or passwords.
   5. **Save as:** `docs/reports/images/sprint-04/s4-09-scoped-stats.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** Sama GET /stats/summary lokakuulle: A (demo-email) näkee omat 10 sessiotaan ja B (idor-b@example.com) vain oman yhden sessionsa.
+- **Used AI?** Yes
 
 ### S4-10 — Recharts setup (Must)
 
