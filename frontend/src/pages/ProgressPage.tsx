@@ -2,32 +2,35 @@ import {useState} from "react";
 import {useQuery} from "@tanstack/react-query";
 import {failureMessage, getProgress, getStatsSummary, listActivityTypes} from "../api/client.ts";
 import {queryKeys, type ProgressFilters} from "../api/queryKeys.ts";
+import {addDays, dateKey, startOfWeek} from "../calendar/range.ts";
 import ProgressChart from "../components/charts/ProgressChart.tsx";
 import ActivityChart from "../components/charts/ActivityChart.tsx";
 import {EmptyState, ErrorBanner} from "../components/StatusMessage.tsx";
 
-function defaultFilters(): ProgressFilters {
-    const to = new Date();
-    const from = new Date();
-    from.setDate(from.getDate() - 12 * 7);
-    return {
-        from: from.toISOString(),
-        to: to.toISOString(),
-        metric: "sessions",
-        granularity: "week",
-    };
-}
-
 function ProgressPage() {
-    const [filters] = useState<ProgressFilters>(defaultFilters);
+    const today = new Date();
+    const [fromDate, setFromDate] = useState(dateKey(startOfWeek(addDays(today, -7 * 7))));
+    const [toDate, setToDate] = useState(dateKey(today));
+    const [granularity, setGranularity] = useState("week");
+
+    const validRange = fromDate !== "" && toDate !== "" && fromDate <= toDate;
+
+    const filters: ProgressFilters = {
+        from: validRange ? new Date(`${fromDate}T00:00:00`).toISOString() : "",
+        to: validRange ? new Date(`${toDate}T23:59:59.999`).toISOString() : "",
+        metric: "sessions",
+        granularity: granularity,
+    };
 
     const progress = useQuery({
         queryKey: queryKeys.progress(filters),
         queryFn: () => getProgress(filters),
+        enabled: validRange,
     });
     const summary = useQuery({
         queryKey: queryKeys.statsSummary(filters.from, filters.to),
         queryFn: () => getStatsSummary(filters.from, filters.to),
+        enabled: validRange,
     });
     const activityTypes = useQuery({queryKey: queryKeys.activityTypes, queryFn: listActivityTypes});
 
@@ -40,7 +43,9 @@ function ProgressPage() {
     }
 
     let sessionsContent;
-    if (progress.isLoading) {
+    if (!validRange) {
+        sessionsContent = null;
+    } else if (progress.isLoading) {
         sessionsContent = <p>Ladataan</p>;
     } else if (progress.isError) {
         sessionsContent = <ErrorBanner message={failureMessage(progress.error)} />;
@@ -51,7 +56,9 @@ function ProgressPage() {
     }
 
     let activityContent;
-    if (summary.isLoading) {
+    if (!validRange) {
+        activityContent = null;
+    } else if (summary.isLoading) {
         activityContent = <p>Ladataan</p>;
     } else if (summary.isError) {
         activityContent = <ErrorBanner message={failureMessage(summary.error)} />;
@@ -73,9 +80,19 @@ function ProgressPage() {
     return (
         <div>
             <h1>Edistyminen</h1>
-            <p>Viimeiset 12 viikkoa</p>
+            <div>
+            <label>Alkaen <input type="date" value={fromDate} onChange={(e) => setFromDate(e.target.value)} /></label>
+            <label>Asti <input type="date" value={toDate} onChange={(e) => setToDate(e.target.value)} /></label>
+            <label>Jakso
+                <select value={granularity} onChange={(e) => setGranularity(e.target.value)}>
+                    <option value="week">Viikko</option>
+                    <option value="month">Kuukausi</option>
+                </select>
+            </label>
+            </div>
+            {!validRange && <ErrorBanner message="Alkupäivän pitää olla ennen loppupäivää." />}
 
-            <h2>Sessiot viikoittain</h2>
+            <h2>{granularity === "week" ? "Sessiot viikoittain" : "Sessiot kuukausittain"}</h2>
             {sessionsContent}
 
             <h2>Matka ja kesto harjoituksittain</h2>

@@ -137,16 +137,16 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
 
 ### S4-12 — Period controls (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S4-12: Period controls
 - **Demonstration:**
   1. **Do this:** On Progress, change period and/or granularity. Confirm charts refetch and update.
   2. **Capture:** Two screenshots (before and after the control change) or a single shot with the control and updated chart.
   3. **Must show:** Period/granularity control changing the displayed data.
   4. **Must not show:** Tokens.
   5. **Save as:** `docs/reports/images/sprint-04/s4-12-period.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** Viikkorajaus vs Kuukausirajaus
+- **Used AI?** No
 
 ### S4-13 — Dashboard stat widgets (Must)
 
