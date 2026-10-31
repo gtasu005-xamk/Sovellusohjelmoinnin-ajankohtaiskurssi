@@ -1,5 +1,5 @@
 import {clearToken, getToken} from "../auth/token.ts";
-import type {SessionFilters} from "./queryKeys.ts";
+import type {ProgressFilters, SessionFilters} from "./queryKeys.ts";
 
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000";
@@ -299,4 +299,42 @@ export function createGoal(body: GoalWrite): Promise<Goal> {
 
 export function setGoalActive(id: number, active: boolean): Promise<Goal> {
     return apiFetch<Goal>(`/goals/${id}`, "PATCH", {active: active});
+}
+
+
+export type ProgressPoint = {
+    period_label: string;
+    period_start: string;
+    value: number;
+}
+
+export type ActivitySummary = {
+    activity_slug: string;
+    session_count: number;
+    duration_min: number;
+    distance_km: number;
+}
+
+export type StatsSummary = {
+    session_count: number;
+    total_duration_min: number;
+    total_distance_km: number;
+    avg_intensity: number | null;
+    by_activity: ActivitySummary[];
+}
+
+export function getProgress(filters: ProgressFilters): Promise<ProgressPoint[]> {
+    const params = new URLSearchParams();
+    params.set("from", filters.from);
+    params.set("to", filters.to);
+    params.set("metric", filters.metric);
+    params.set("granularity", filters.granularity);
+    return apiFetch<ProgressPoint[]>(`/stats/progress?${params.toString()}`);
+}
+
+export function getStatsSummary(from: string, to: string): Promise<StatsSummary> {
+    const params = new URLSearchParams();
+    params.set("from", from);
+    params.set("to", to);
+    return apiFetch<StatsSummary>(`/stats/summary?${params.toString()}`);
 }

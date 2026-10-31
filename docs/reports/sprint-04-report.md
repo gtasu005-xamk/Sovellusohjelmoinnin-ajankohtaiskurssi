@@ -124,16 +124,16 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
 
 ### S4-11 — Progress page charts (Must)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done 
+- **PR / commit:** S4-11: Progress page charts
 - **Demonstration:**
   1. **Do this:** Log in, open Progress for a **known** period whose numbers you can explain (same fixtures as tests or a hand-counted set).
   2. **Capture:** Screenshot of the Progress charts.
   3. **Must show:** Charts rendered for that period (sessions over time and/or distance/intensity by activity as implemented).
   4. **Must not show:** Tokens.
   5. **Save as:** `docs/reports/images/sprint-04/s4-11-progress.png`
-  6. **Caption (1–2 sentences):** (state expected numbers for the period)
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** Odotetut luvut: W43 = 2 sessiota ja W44 = 1, juoksu 8 km / 50 min ja pyöräily 10 km / 40 min
+- **Used AI?** Yes 
 
 ### S4-12 — Period controls (Must)
 
