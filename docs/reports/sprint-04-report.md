@@ -105,8 +105,8 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
 
 ### S4-09 — User-scoped stats queries (Must)
 
-- **Status:** S4-09: User-scoped stats queries
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S4-09: User-scoped stats queries
 - **Demonstration:**
   1. **Do this:** As User A, call a stats endpoint and note totals. As User B (different account with different sessions), call the same endpoint. Confirm User A’s response does **not** include User B’s sessions (and vice versa).
   2. **Capture:** Two screenshots (A and B) or one collage; emails only in the caption.
@@ -118,9 +118,9 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
 
 ### S4-10 — Recharts setup (Must)
 
-- **Status:**
-- **PR / commit:**
-- **Used AI?** Yes / No
+- **Status:** Done
+- **PR / commit:** S4-10: Recharts setup
+- **Used AI?** No
 
 ### S4-11 — Progress page charts (Must)
 
