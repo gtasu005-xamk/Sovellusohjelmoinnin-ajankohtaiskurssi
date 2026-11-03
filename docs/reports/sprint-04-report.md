@@ -180,16 +180,16 @@ For each stretch below that you completed: Status, PR / commit, Used AI? Add Dem
 
 #### S4-S1 — Goal progress percent (if done)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S4-S1: Goal progress percent
 - **Demonstration:**
   1. **Do this:** Show goal progress percent in UI or `/docs`.
   2. **Capture:** Screenshot of the percent / progress display.
   3. **Must show:** Goal progress visible for the logged-in user.
   4. **Must not show:** Tokens.
   5. **Save as:** `docs/reports/images/sprint-04/s4-s1-goal-progress.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** Tavoitteet etusivulla käyttöliittymässä.
+- **Used AI?** Yes
 
 #### S4-S2 — Period over period (if done)
 

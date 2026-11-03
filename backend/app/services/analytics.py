@@ -8,7 +8,7 @@
 ## planned/actual voi olla None jos arvoa ei ole syötetty
 
 from dataclasses import dataclass, field
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 
 @dataclass
 class MeasurementInput:
@@ -178,3 +178,41 @@ def compute_streaks(sessions: list[SessionInput], today: date) -> dict:
         "longest_days": longest,
         "last_active_date": sorted_days[-1].isoformat(),
     }
+
+
+## Tavoitteen jakso: kuluva ISO-viikko (ma-su) tai kuluva kuukausi, UTC.
+def goal_period_range(period: str, today: date) -> tuple[datetime, datetime]:
+    if period == "week":
+        start = today - timedelta(days=today.weekday())
+        end = start + timedelta(days=7)
+    elif period == "month":
+        start = date(today.year, today.month, 1)
+        if today.month == 12:
+            end = date(today.year + 1, 1, 1)
+        else:
+            end = date(today.year, today.month + 1, 1)
+    else:
+        raise ValueError("Unknown period")
+
+    start_dt = datetime(start.year, start.month, start.day, tzinfo=timezone.utc)
+    end_dt = datetime(end.year, end.month, end.day, tzinfo=timezone.utc) - timedelta(microseconds=1)
+    return start_dt, end_dt
+
+
+## Tavoitteen toteutuma. Summataan yksikön (slug) actual-arvot samalla tavalla kuin yhteenvedossa,
+## activity_slug rajaa yhteen aktiviteettiin. Prosentti voi mennä yli 100.
+def goal_completion(sessions: list[SessionInput], unit_slug: str, target: float, activity_slug: str | None = None) -> dict:
+    total = 0.0
+    for session in sessions:
+        if session.session_at is None:
+            continue
+        for m in session.measurements:
+            if activity_slug is not None and m.activity_slug != activity_slug:
+                continue
+            if m.unit_slug == unit_slug and m.actual_value is not None:
+                total += m.actual_value
+
+    percent = 0.0
+    if target > 0:
+        percent = round(total / target * 100, 1)
+    return {"total": total, "percent": percent}

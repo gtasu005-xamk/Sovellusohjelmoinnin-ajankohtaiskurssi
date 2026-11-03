@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from app.core.deps import get_current_user
 from app.db.session import get_db
 from app.models.user import User
-from app.schemas.stats import Granularity, ProgressMetric, ProgressPoint, StatsSummary, StreakResponse
+from app.schemas.stats import GoalProgress, Granularity, ProgressMetric, ProgressPoint, StatsSummary, StreakResponse
 from app.services import stats as stats_service
 from app.services.sessions import InvalidRangeError
 from app.services.stats import UnknownActivityTypeError
@@ -52,3 +52,10 @@ def get_streaks(db: Session = Depends(get_db), current_user: User = Depends(get_
     Ajastamattomat ja tulevat sessiot ei lasketa. Nykyinen putki jatkuu jos eilen oli sessio,
     vaikka tänään ei vielä olisi."""
     return stats_service.get_streaks(db, current_user)
+
+
+@router.get("/goals", response_model=list[GoalProgress])
+def get_goal_progress(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    """Aktiivisten tavoitteiden toteutuma kuluvalta viikolta tai kuukaudelta (UTC).
+    total = tavoitteen yksikön actual-arvojen summa, percent = total / target_value * 100 (voi olla yli 100)."""
+    return stats_service.get_goal_progress(db, current_user)

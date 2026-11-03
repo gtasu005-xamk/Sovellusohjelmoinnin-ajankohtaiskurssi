@@ -27,4 +27,5 @@ export const queryKeys = {
     goals: (active?: boolean) => ["goals", active],
     progress: (filters: ProgressFilters) => ["stats", "progress", filters],
     statsSummary: (from: string, to: string) => ["stats", "summary", from, to],
+    goalProgress: ["stats", "goals"],
 };

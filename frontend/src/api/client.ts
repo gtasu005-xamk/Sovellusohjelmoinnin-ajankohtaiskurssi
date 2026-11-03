@@ -332,6 +332,24 @@ export function getProgress(filters: ProgressFilters): Promise<ProgressPoint[]> 
     return apiFetch<ProgressPoint[]>(`/stats/progress?${params.toString()}`);
 }
 
+export type GoalProgress = {
+    goal_id: number;
+    unit_type_id: number;
+    unit_name: string;
+    activity_type_id: number | null;
+    activity_name: string | null;
+    period: string;
+    period_start: string;
+    period_end: string;
+    target_value: number;
+    total: number;
+    percent: number;
+}
+
+export function getGoalProgress(): Promise<GoalProgress[]> {
+    return apiFetch<GoalProgress[]>("/stats/goals");
+}
+
 export function getStatsSummary(from: string, to: string): Promise<StatsSummary> {
     const params = new URLSearchParams();
     params.set("from", from);

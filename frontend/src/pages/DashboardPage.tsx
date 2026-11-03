@@ -1,12 +1,13 @@
 import {useState} from "react";
 import {Link} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
-import {failureMessage, getStatsSummary, listActivityTypes, listSessions} from "../api/client.ts";
+import {failureMessage,  getStatsSummary, listActivityTypes, listSessions, getGoalProgress } from "../api/client.ts";
 import {queryKeys} from "../api/queryKeys.ts";
 import {exerciseSummary, formatSessionDate} from "../sessions/display.ts";
 import {addDays, startOfWeek} from "../calendar/range.ts";
 import {EmptyState, ErrorBanner} from "../components/StatusMessage.tsx";
 import StatWidgets from "../components/StatWidgets.tsx";
+import GoalProgressList from "../components/GoalProgressList.tsx";
 
 function periodRange(period: string): {from: string; to: string} {
     const today = new Date();
@@ -36,6 +37,18 @@ function DashboardPage() {
         queryFn: () => listSessions({unscheduled: false}),
     });
     const activityTypes = useQuery({queryKey: queryKeys.activityTypes, queryFn: listActivityTypes});
+    const goalProgress = useQuery({queryKey: queryKeys.goalProgress, queryFn: getGoalProgress});
+
+    let goalContent;
+    if (goalProgress.isLoading) {
+        goalContent = <p>Ladataan</p>;
+    } else if (goalProgress.isError) {
+        goalContent = <ErrorBanner message={failureMessage(goalProgress.error)} />;
+    } else if (!goalProgress.data || goalProgress.data.length === 0) {
+        goalContent = <EmptyState title="Ei aktiivisia tavoitteita." linkTo="/goals" linkText="Luo tavoite" />;
+    } else {
+        goalContent = <GoalProgressList goals={goalProgress.data} />;
+    }
 
     let widgets;
     if (summary.isLoading) {
@@ -93,6 +106,9 @@ function DashboardPage() {
             </select>
         </label>
         {widgets}
+
+        <h2>Tavoitteet</h2>
+        {goalContent}
 
         <h2>Viimeisimmät sessiot</h2>
         {recentContent}

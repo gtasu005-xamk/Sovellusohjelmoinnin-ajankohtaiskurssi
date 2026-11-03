@@ -1,3 +1,4 @@
+from datetime import datetime
 from pydantic import BaseModel
 from typing import Literal
 
@@ -29,3 +30,17 @@ class StreakResponse(BaseModel):
     current_days: int
     longest_days: int
     last_active_date: str | None
+
+
+class GoalProgress(BaseModel):
+    goal_id: int
+    unit_type_id: int
+    unit_name: str
+    activity_type_id: int | None
+    activity_name: str | None
+    period: str
+    period_start: datetime
+    period_end: datetime
+    target_value: float
+    total: float
+    percent: float

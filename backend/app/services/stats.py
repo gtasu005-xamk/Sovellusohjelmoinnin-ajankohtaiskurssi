@@ -4,9 +4,11 @@ from sqlalchemy.orm import Session
 from app.models.user import User
 from app.models.workout_session import WorkoutSession
 from app.repositories import session as session_repo
-from app.services.analytics import MeasurementInput, SessionInput, build_series, compute_streaks, summarize_sessions
+from app.services.analytics import (MeasurementInput, SessionInput, build_series, compute_streaks,
+                                    goal_completion, goal_period_range, summarize_sessions)
 from app.services.sessions import InvalidRangeError
 from app.repositories import activity_type as activity_type_repo
+from app.repositories import goal as goal_repo
 
 class UnknownActivityTypeError(Exception):
     pass
@@ -66,3 +68,33 @@ def get_streaks(db: Session, user: User) -> dict:
         sessions.append(to_session_input(session))
     today = datetime.now(timezone.utc).date()
     return compute_streaks(sessions, today)
+
+
+def get_goal_progress(db: Session, user: User) -> list[dict]:
+    today = datetime.now(timezone.utc).date()
+    results = []
+    for goal in goal_repo.list_by_user(db, user.id, active=True):
+        start, end = goal_period_range(goal.period, today)
+        sessions = load_sessions(db, user, start, end)
+
+        activity_slug = None
+        activity_name = None
+        if goal.activity_type is not None:
+            activity_slug = goal.activity_type.slug
+            activity_name = goal.activity_type.name
+
+        completion = goal_completion(sessions, goal.unit_type.slug, goal.target_value, activity_slug)
+        results.append({
+            "goal_id": goal.id,
+            "unit_type_id": goal.unit_type_id,
+            "unit_name": goal.unit_type.name,
+            "activity_type_id": goal.activity_type_id,
+            "activity_name": activity_name,
+            "period": goal.period,
+            "period_start": start,
+            "period_end": end,
+            "target_value": goal.target_value,
+            "total": completion["total"],
+            "percent": completion["percent"],
+        })
+    return results
