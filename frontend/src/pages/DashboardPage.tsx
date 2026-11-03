@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {Link} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
-import {failureMessage,  getStatsSummary, listActivityTypes, listSessions, getGoalProgress } from "../api/client.ts";
+import {failureMessage,  getStatsSummary, listActivityTypes, listSessions, getGoalProgress, getCompare } from "../api/client.ts";
 import {queryKeys} from "../api/queryKeys.ts";
 import {exerciseSummary, formatSessionDate} from "../sessions/display.ts";
 import {addDays, startOfWeek} from "../calendar/range.ts";
@@ -38,6 +38,18 @@ function DashboardPage() {
     });
     const activityTypes = useQuery({queryKey: queryKeys.activityTypes, queryFn: listActivityTypes});
     const goalProgress = useQuery({queryKey: queryKeys.goalProgress, queryFn: getGoalProgress});
+    const compare = useQuery({
+        queryKey: queryKeys.compare(range.from, range.to),
+        queryFn: () => getCompare(range.from, range.to),
+    });
+
+    let compareText = "";
+    if (compare.data) {
+        const delta = compare.data.delta;
+        compareText = `Edelliseen yhtä pitkään jaksoon: ${delta.session_count >= 0 ? "+" : ""}${delta.session_count} sessiota, `
+            + `${delta.total_distance_km >= 0 ? "+" : ""}${delta.total_distance_km.toFixed(1)} km, `
+            + `${delta.total_duration_min >= 0 ? "+" : ""}${Math.round(delta.total_duration_min)} min`;
+    }
 
     let goalContent;
     if (goalProgress.isLoading) {
@@ -106,6 +118,7 @@ function DashboardPage() {
             </select>
         </label>
         {widgets}
+        {compareText && <p>{compareText}</p>}
 
         <h2>Tavoitteet</h2>
         {goalContent}

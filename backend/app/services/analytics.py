@@ -180,6 +180,14 @@ def compute_streaks(sessions: list[SessionInput], today: date) -> dict:
     }
 
 
+## Edellinen jakso: yhtä pitkä ja päättyy juuri ennen valitun jakson alkua.
+def previous_window(from_date: datetime, to_date: datetime) -> tuple[datetime, datetime]:
+    length = to_date - from_date
+    previous_to = from_date - timedelta(microseconds=1)
+    previous_from = previous_to - length
+    return previous_from, previous_to
+
+
 ## Tavoitteen jakso: kuluva ISO-viikko (ma-su) tai kuluva kuukausi, UTC.
 def goal_period_range(period: str, today: date) -> tuple[datetime, datetime]:
     if period == "week":

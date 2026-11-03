@@ -17,6 +17,20 @@ class StatsSummary(BaseModel):
     by_activity: list[ActivitySummary]
 
 
+class StatsDelta(BaseModel):
+    session_count: int
+    total_duration_min: float
+    total_distance_km: float
+
+
+class StatsCompare(BaseModel):
+    previous_from: datetime
+    previous_to: datetime
+    current: StatsSummary
+    previous: StatsSummary
+    delta: StatsDelta
+
+
 ProgressMetric = Literal["sessions", "duration_min", "distance_km"]
 Granularity = Literal["week", "month"]
 

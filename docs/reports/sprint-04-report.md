@@ -193,16 +193,16 @@ For each stretch below that you completed: Status, PR / commit, Used AI? Add Dem
 
 #### S4-S2 — Period over period (if done)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S4-S2: Period over period
 - **Demonstration:**
   1. **Do this:** Show period-over-period comparison in UI or API response.
   2. **Capture:** Screenshot of the comparison.
   3. **Must show:** Two periods compared with clear labels.
   4. **Must not show:** Tokens.
   5. **Save as:** `docs/reports/images/sprint-04/s4-s2-pop.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** PoP testaus Swaggerissa
+- **Used AI?** No
 
 #### S4-S3 — CSV export (if done)
 

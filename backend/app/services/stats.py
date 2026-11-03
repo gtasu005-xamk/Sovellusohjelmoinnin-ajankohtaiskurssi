@@ -5,7 +5,7 @@ from app.models.user import User
 from app.models.workout_session import WorkoutSession
 from app.repositories import session as session_repo
 from app.services.analytics import (MeasurementInput, SessionInput, build_series, compute_streaks,
-                                    goal_completion, goal_period_range, summarize_sessions)
+                                    goal_completion, goal_period_range, previous_window, summarize_sessions)
 from app.services.sessions import InvalidRangeError
 from app.repositories import activity_type as activity_type_repo
 from app.repositories import goal as goal_repo
@@ -47,6 +47,23 @@ def load_sessions(db: Session, user: User, from_date: datetime, to_date: datetim
 def get_summary(db: Session, user: User, from_date: datetime, to_date: datetime) -> dict:
     sessions = load_sessions(db, user, from_date, to_date)
     return summarize_sessions(sessions)
+
+
+def get_compare(db: Session, user: User, from_date: datetime, to_date: datetime) -> dict:
+    current = get_summary(db, user, from_date, to_date)
+    previous_from, previous_to = previous_window(from_date, to_date)
+    previous = get_summary(db, user, previous_from, previous_to)
+    return {
+        "previous_from": previous_from,
+        "previous_to": previous_to,
+        "current": current,
+        "previous": previous,
+        "delta": {
+            "session_count": current["session_count"] - previous["session_count"],
+            "total_duration_min": current["total_duration_min"] - previous["total_duration_min"],
+            "total_distance_km": current["total_distance_km"] - previous["total_distance_km"],
+        },
+    }
 
 
 def get_progress(db: Session, user: User, from_date: datetime, to_date: datetime,

@@ -346,6 +346,25 @@ export type GoalProgress = {
     percent: number;
 }
 
+export type StatsCompare = {
+    previous_from: string;
+    previous_to: string;
+    current: StatsSummary;
+    previous: StatsSummary;
+    delta: {
+        session_count: number;
+        total_duration_min: number;
+        total_distance_km: number;
+    };
+}
+
+export function getCompare(from: string, to: string): Promise<StatsCompare> {
+    const params = new URLSearchParams();
+    params.set("from", from);
+    params.set("to", to);
+    return apiFetch<StatsCompare>(`/stats/compare?${params.toString()}`);
+}
+
 export function getGoalProgress(): Promise<GoalProgress[]> {
     return apiFetch<GoalProgress[]>("/stats/goals");
 }

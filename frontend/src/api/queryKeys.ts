@@ -28,4 +28,5 @@ export const queryKeys = {
     progress: (filters: ProgressFilters) => ["stats", "progress", filters],
     statsSummary: (from: string, to: string) => ["stats", "summary", from, to],
     goalProgress: ["stats", "goals"],
+    compare: (from: string, to: string) => ["stats", "compare", from, to],
 };
