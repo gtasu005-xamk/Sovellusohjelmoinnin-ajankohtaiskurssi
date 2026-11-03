@@ -346,6 +346,23 @@ export type GoalProgress = {
     percent: number;
 }
 
+export async function downloadStatsCsv(from: string, to: string, filename: string): Promise<void> {
+    const params = new URLSearchParams();
+    params.set("from", from);
+    params.set("to", to);
+    const response = await apiGet(`/stats/export?${params.toString()}`);
+    if (!response.ok) {
+        throw new ApiError(response.status, `${response.status}: ${response.statusText}`);
+    }
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    link.click();
+    URL.revokeObjectURL(url);
+}
+
 export type StatsCompare = {
     previous_from: string;
     previous_to: string;

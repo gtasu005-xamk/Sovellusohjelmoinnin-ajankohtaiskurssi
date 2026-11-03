@@ -1,6 +1,6 @@
 import {useState} from "react";
-import {useQuery} from "@tanstack/react-query";
-import {failureMessage, getProgress, getStatsSummary, listActivityTypes} from "../api/client.ts";
+import {useMutation, useQuery} from "@tanstack/react-query";
+import {downloadStatsCsv, failureMessage, getProgress, getStatsSummary, listActivityTypes} from "../api/client.ts";
 import {queryKeys, type ProgressFilters} from "../api/queryKeys.ts";
 import {addDays, dateKey, startOfWeek} from "../calendar/range.ts";
 import ProgressChart from "../components/charts/ProgressChart.tsx";
@@ -33,6 +33,9 @@ function ProgressPage() {
         enabled: validRange,
     });
     const activityTypes = useQuery({queryKey: queryKeys.activityTypes, queryFn: listActivityTypes});
+    const exportMutation = useMutation({
+        mutationFn: () => downloadStatsCsv(filters.from, filters.to, `stats_${fromDate}_${toDate}.csv`),
+    });
 
     function activityName(slug: string): string {
         const activity = (activityTypes.data ?? []).find((a) => a.slug === slug);
@@ -89,8 +92,12 @@ function ProgressPage() {
                     <option value="month">Kuukausi</option>
                 </select>
             </label>
+            <button type="button" onClick={() => exportMutation.mutate()} disabled={!validRange || exportMutation.isPending}>
+                Lataa CSV
+            </button>
             </div>
             {!validRange && <ErrorBanner message="Alkupäivän pitää olla ennen loppupäivää." />}
+            {exportMutation.isError && <ErrorBanner message={failureMessage(exportMutation.error)} />}
 
             <h2>{granularity === "week" ? "Sessiot viikoittain" : "Sessiot kuukausittain"}</h2>
             {sessionsContent}

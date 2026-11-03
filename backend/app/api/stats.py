@@ -1,5 +1,5 @@
 from datetime import datetime
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
 from sqlalchemy.orm import Session
 
 from app.core.deps import get_current_user
@@ -25,6 +25,23 @@ def get_summary(
         return stats_service.get_summary(db, current_user, from_date, to_date)
     except InvalidRangeError:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="'from' must be before 'to'")
+
+
+@router.get("/export")
+def export_csv(
+    from_date: datetime = Query(alias="from"),
+    to_date: datetime = Query(alias="to"),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Summary CSV:nä valitulta jaksolta. Rivi per aktiviteetti + total-rivi."""
+    try:
+        content = stats_service.export_summary_csv(db, current_user, from_date, to_date)
+    except InvalidRangeError:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="'from' must be before 'to'")
+    filename = f"stats_{from_date.date()}_{to_date.date()}.csv"
+    return Response(content=content, media_type="text/csv",
+                    headers={"Content-Disposition": f'attachment; filename="{filename}"'})
 
 
 @router.get("/compare", response_model=StatsCompare)

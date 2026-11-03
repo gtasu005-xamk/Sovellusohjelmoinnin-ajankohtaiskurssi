@@ -4,7 +4,7 @@ Copy this file to `docs/reports/sprint-04.md` in **your** repo and fill the blan
 
 | Field | Your answer |
 | ----- | ----------- |
-| **Dates** | |
+| **Dates** |3/11/2026 |
 | **Names** |Tatu Suuripää |
 | **Repo URL** |https://github.com/gtasu005-xamk/Sovellusohjelmoinnin-ajankohtaiskurssi   |
 | **Branch** |Master |
@@ -16,6 +16,8 @@ Tickets: [sprint-04-tickets.md](../tickets/sprint-04-tickets.md) · Index: [../R
 From the tickets: turn stored sessions into stats and charts you can explain. You are done when stats endpoints match known fixtures; analytics unit tests pass without the full UI; Progress shows sessions over time and distance/intensity by activity; Dashboard period widgets match the API.
 
 In your words (2–3 sentences): did you meet that, and what is still rough?
+
+Tavoite täyttyi: stats-endpointit antavat samat luvut kuin käsin lasketut testisessiot, analytiikan testit menevät läpi ilman UI:ta ja Progress-sivu sekä Dashboardin widgetit käyttävät samaa APIa. Karkeaa on vielä ulkoasu (kaaviot ja kortit ovat aika perusmallisia) ja se, että backend laskee päivät UTC:nä mutta frontend valitsee jaksot paikallisessa ajassa.
 
 ## Tickets
 
@@ -53,7 +55,7 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
 
 ### S4-05 — Analytics unit tests (Must)
 
-- **Status:**
+- **Status:** Done
 - **PR / commit:** S4-05: Analytics unit tests
 - **Demonstration:**
   1. **Do this:** From the documented working directory, run `pytest` for the analytics unit tests (pure Python—no UI required).
@@ -206,44 +208,48 @@ For each stretch below that you completed: Status, PR / commit, Used AI? Add Dem
 
 #### S4-S3 — CSV export (if done)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S4-S3: CSV export
 - **Demonstration:**
   1. **Do this:** Trigger CSV export; show the download dialog or open the file header rows (no secrets).
   2. **Capture:** Screenshot of download UI or CSV opened with sample rows.
   3. **Must show:** Export produced a CSV for the user’s stats/sessions as documented.
   4. **Must not show:** Tokens in the URL.
   5. **Save as:** `docs/reports/images/sprint-04/s4-s3-csv.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** Ladattu CSV. Rivi per aktiviteetti ja lopussa total-rivi, vain kirjautuneen käyttäjän sessiot.
+- **Used AI?** No
 
 ## How we worked
 
 Sprint 4 is **three weeks**.
 
-- **Week 1** (analytics module + unit tests):
-- **Week 2** (`/stats/summary`, `/stats/progress`, `/stats/streaks`):
-- **Week 3** (Progress charts, period controls, Dashboard widgets):
-- Who did what:
-- One blocker and how you unblocked it:
+- **Week 1** (analytics module + unit tests): Tein `services/analytics.py`:n dataclasseilla: yhteenveto, viikko/kuukausi-aikasarjat ja putket. Lopuksi pytest-testit yhteisellä testidatalla.
+- **Week 2** (`/stats/summary`, `/stats/progress`, `/stats/streaks`): Endpointit hakevat käyttäjän sessiot kannasta, muuttavat ne analytiikan muotoon ja palauttavat tuloksen. Lisäksi testit sille, ettei käyttäjä näe toisen tilastoja.
+- **Week 3** (Progress charts, period controls, Dashboard widgets): Recharts-kaaviot Progress-sivulle, aikaväli- ja jaksovalinnat, Dashboardin widgetit sekä stats-dokumentaatio. Lopuksi stretchit: tavoiteprosentti, jaksovertailu ja CSV-export.
+- Who did what: Tein kaikki osiot.
+- One blocker and how you unblocked it: Rechartsin asennuksen jälkeen Docker-kontin Vite ei löytänyt pakettia. Syy oli anonyymi `/app/node_modules`-volume, jossa oli vielä vanhat paketit. Korjaantui komennolla `docker compose up -d --build -V web`.
 
 ## Decisions
 
 Two to four technical choices with why (for example how you define a streak, which `session_at` rows count).
 
-1.
-2.
+1. Tilastoihin otetaan vain sessiot, joilla on `session_at`. Ajastamattomia ei voi sijoittaa mihinkään viikkoon tai päivään, joten ne jätetään pois kaikista stats-endpointeista.
+2. Kesto ja matka lasketaan vain `actual`-arvoista mittausyksikön slugin perusteella (`duration_min`, `distance_km`). Planned-arvot eivät kerro mitä oikeasti tehtiin.
+3. Putki = peräkkäiset UTC-päivät joina on vähintään yksi sessio. Nykyinen putki ei katkea jos eilen oli sessio mutta tänään ei vielä. Tulevaisuuden sessioita ei lasketa.
+4. Kaikki laskenta on `services/analytics.py`:ssä puhtaana Pythonina (dataclassit sisään, dict ulos). Sen ansiosta testit toimii ilman kantaa, ja samaa summary-funktiota voi käyttää uudelleen esim. jaksovertailussa ja CSV-exportissa.
 
 ## What we learned
 
 Note what you actually used. Tools this sprint: pytest, dataclasses / TypedDict, Recharts, TanStack Query (period filters). Sprint 4 Must is **pure Python** in the API—not pandas.
 
-- What clicked:
-- One thing you would do differently:
+- What clicked: Kun laskenta on erillään tietokannasta, sitä on helppo testata pytestillä ja käyttää uudelleen. TanStack Queryssä kun filtterit on query keyssä, kaaviot päivittyy itsestään kun aikaväliä vaihtaa.
+- One thing you would do differently: Tekisin testidatan (muutama sessio joiden luvut tiedän) heti alussa. Nyt laskin odotettuja lukuja käsin moneen kertaan screenshotteja varten.
 
 ## Carry-over
 
 Deferred Must/Should, stretch leftovers, risks for [Sprint 5 tickets](../tickets/sprint-05-tickets.md) (Ollama insights).
+
+Kaikki Must/Should-tiketit ja kaikki kolme stretchiä tehty. Riskit Sprint 5:lle: Ollaman asennus ja nopeus omalla koneella. Lisäksi backend laskee päivät UTC:nä, mutta frontend valitsee jaksot paikallisessa ajassa, joten keskiyön tienoilla sessio voi osua eri päivälle kuin odottaa.
 
 ## AI usage (sprint-level reflection)
 
@@ -253,12 +259,12 @@ Here, cover your **overall** AI use during this sprint (Cursor, ChatGPT, Copilot
 
 If you marked **No** on every ticket, write a short note that you did not use AI coding assistants this sprint (you may still answer verification / independence questions briefly).
 
-- **Where AI helped most this sprint** (themes, ticket IDs, or areas—not a ticket-by-ticket dump):
-- **What I typically accepted from AI suggestions:**
-- **What I typically rejected or reworked, and why:**
-- **How I verified AI-assisted work** (tests, `/docs`, manual demos, reviews):
-- **What I can now explain or do independently** that I relied on AI for earlier:
-- **Anything I would do differently with AI next sprint:**
+- **Where AI helped most this sprint** (themes, ticket IDs, or areas—not a ticket-by-ticket dump): Testeissä (S4-05 analytiikan testit, S4-09 käyttäjärajauksen testit), progress-endpointissa (S4-07), Progress-sivun kaavioiden kytkemisessä APIin (S4-11), stats-dokumentaatiossa (S4-14) ja tavoitteiden prosentissa (S4-S1).
+- **What I typically accepted from AI suggestions:** Testien rakenteen ja testidatan, query keyden rakenteen filttereineen ja dokumentaation taulukkomuodon.
+- **What I typically rejected or reworked, and why:** Liian pitkät kommentit ja selitykset lyhensin, koska ne oli raskaita lukea. Pidin koodin samassa yksinkertaisessa tyylissä kuin muu projekti.
+- **How I verified AI-assisted work** (tests, `/docs`, manual demos, reviews): Ajoin pytestit, kokeilin endpointit Swaggerissa kahdella käyttäjällä ja vertasin kaavioiden ja widgettien lukuja käsin laskettuihin. Yhdessä testissä AI:n odotettu arvo oli väärin, ja se löytyi kun laskin luvun itse.
+- **What I can now explain or do independently** that I relied on AI for earlier: Miten käyttäjärajaus tehdään aggregaateissa (aina `user_id`-suodatus servicessä, ei koskaan query-parametrista) ja miten TanStack Query hakee uudestaan kun query key muuttuu.
+- **Anything I would do differently with AI next sprint:** Jakaisin isommat tehtävät pienempiin osiin ja tarkistaisin jokaisen osan ennen kuin jatkan seuraavaan. Näin virheet löytyvät aikaisemmin.
 
 Do not paste secrets, full JWTs, or `.env` values.
 

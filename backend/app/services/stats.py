@@ -1,3 +1,5 @@
+import csv
+import io
 from datetime import datetime, timezone
 from sqlalchemy.orm import Session
 
@@ -47,6 +49,17 @@ def load_sessions(db: Session, user: User, from_date: datetime, to_date: datetim
 def get_summary(db: Session, user: User, from_date: datetime, to_date: datetime) -> dict:
     sessions = load_sessions(db, user, from_date, to_date)
     return summarize_sessions(sessions)
+
+
+def export_summary_csv(db: Session, user: User, from_date: datetime, to_date: datetime) -> str:
+    summary = get_summary(db, user, from_date, to_date)
+    output = io.StringIO()
+    writer = csv.writer(output)
+    writer.writerow(["activity_slug", "session_count", "duration_min", "distance_km"])
+    for row in summary["by_activity"]:
+        writer.writerow([row["activity_slug"], row["session_count"], row["duration_min"], row["distance_km"]])
+    writer.writerow(["total", summary["session_count"], summary["total_duration_min"], summary["total_distance_km"]])
+    return output.getvalue()
 
 
 def get_compare(db: Session, user: User, from_date: datetime, to_date: datetime) -> dict:
