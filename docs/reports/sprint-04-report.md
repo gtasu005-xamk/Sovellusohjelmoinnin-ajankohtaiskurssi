@@ -163,16 +163,16 @@ Skip stretch tickets you did not do. Stretch: Status, PR, and Used AI? for each 
 
 ### S4-14 — Stats README notes (Should)
 
-- **Status:**
-- **PR / commit:**
+- **Status:** Done
+- **PR / commit:** S4-14: Stats README notes
 - **Demonstration:**
   1. **Do this:** Open the README (or `docs/stats.md`) section that documents stats endpoints, tests, and how to interpret periods/`session_at`.
   2. **Capture:** Screenshot of that documentation.
   3. **Must show:** Classmate-facing notes for stats/test commands or endpoint contract.
   4. **Must not show:** Secrets.
   5. **Save as:** `docs/reports/images/sprint-04/s4-14-readme.png`
-  6. **Caption (1–2 sentences):**
-- **Used AI?** Yes / No
+  6. **Caption (1–2 sentences):** Screenshot docs/stats.md 
+- **Used AI?** Yes 
 
 ### Stretch (only if you did them)
 

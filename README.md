@@ -78,3 +78,5 @@ Analytiikan yksikkötestit (yhteenveto, aikasarjat, putket). Kutsuvat suoraan se
 cd backend
 .venv\Scripts\python -m pytest tests/test_analytics.py
 ```
+
+Tilastojen endpointit, putken määritelmä ja testit: [docs/stats.md](docs/stats.md)
